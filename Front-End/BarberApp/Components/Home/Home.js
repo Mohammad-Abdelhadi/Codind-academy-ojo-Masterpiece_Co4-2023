@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,24 +7,23 @@ import {
   Image,
   TextInput,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
+import axios from "axios"; // Import axios for making HTTP requests
 import logo from "../../assets/backarrow.png";
 import banner from "../../assets/banner.jpg";
-import onboarding from "../../assets/onboarding.png";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
-import NavBar from "../Navbar/Navbar";
-import * as Icon from "@expo/vector-icons"; // Import all icons from Expo Icons
-import Barbers from "./Barbers";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
+// import NavBar from "../Navbar/Navbar";
 const categoryData = [
-  { text: "haircut" }, // Custom
-  { text: "masseage" }, // Expo
-  { text: "shaves" }, // Expo
-  { text: "shaves" }, // Expo
-  { text: "shaves" }, // Expo
-  // Add more categories as needed
+  { text: "haircut" },
+  { text: "masseage" },
+  { text: "shaves" },
+  { text: "shaves" },
+  { text: "shaves" },
 ];
 
 const categoryIconMapping = {
@@ -34,6 +33,46 @@ const categoryIconMapping = {
 };
 
 const Home = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const authToken = route.params?.authToken;
+  const userId = route.params?.userId;
+  const userEmail = route.params?.userEmail;
+
+  // Define a state variable to store the user's appointments
+  const [userAppointments, setUserAppointments] = useState([]);
+  const handleFormSubmit = () => {
+    navigation.navigate("Booking_Appointment", {
+      userId: userId,
+      userEmail: userEmail,
+    });
+  };
+
+  // Create a function to fetch user appointments
+  const fetchUserAppointments = async () => {
+    try {
+      // Make an HTTP GET request to your server endpoint
+      const response = await axios.get(
+        `https://barberapp.onrender.com/api/user/getAppointmentsForUser/${userId}`
+      );
+
+      if (response.status === 200) {
+        // Assuming the response contains an array of appointments
+        const appointments = response.data;
+        setUserAppointments(appointments);
+      }
+    } catch (error) {
+      console.error("Error fetching user appointments:", error);
+    }
+  };
+
+  // Use useEffect to fetch user appointments when the component mounts
+  useEffect(() => {
+    fetchUserAppointments();
+  }, [userAppointments]); // The empty dependency array ensures this effect runs once when the component mounts
+
+  const UserEmail = userEmail ? userEmail.split("@")[0] : "Guest";
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -45,8 +84,16 @@ const Home = () => {
         </View>
       </View>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Morning, Ali ✌</Text>
+        <Text style={styles.headerText}>
+          Good morning, {UserEmail}✌
+          {/* {authToken && <Text>Token: {authToken}</Text>} */}
+          {/* {userId && <Text>ID: {userId}</Text>} */}
+          {userAppointments && (
+            <Text>Appointments Length: {userAppointments.length}</Text>
+          )}
+        </Text>
       </View>
+
       <View style={styles.searchInput}>
         <EvilIcons
           style={styles.searchIcon}
@@ -89,26 +136,32 @@ const Home = () => {
         </View>
         <View style={styles.horizontalLine}></View>
         <Text style={styles.barberTitle}>Our Barbers ✌</Text>
-        <Barbers />
+        {/* <Barbers /> */}
+        <TouchableOpacity style={styles.continueBtn} onPress={handleFormSubmit}>
+          <Text>hello</Text>
+        </TouchableOpacity>
       </View>
       {/* <NavBar /> */}
     </SafeAreaView>
   );
 };
 
-// Styles remain the same
-
-export default Home;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // marginTop: 30,
-    // paddingTop: 30,
-
-    // paddingVertical: 16,
-
     backgroundColor: "#fafafa",
+  },
+  continueBtn: {
+    backgroundColor: "orange",
+    color: "white",
+    fontWeight: "700",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    height: 50,
+    width: 370,
+    borderRadius: 32,
   },
   headerContainer: {
     flexDirection: "row",
@@ -128,7 +181,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
     gap: 10,
-
     flex: 1,
   },
   header: {
@@ -146,7 +198,6 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 10,
-    tintColor: "black",
   },
   input: {
     flex: 1,
@@ -186,7 +237,6 @@ const styles = StyleSheet.create({
   },
   categoriesContainer: {
     flexDirection: "row",
-    // justifyContent: "space-between",
     gap: 25,
     alignItems: "center",
     marginTop: 20,
@@ -210,15 +260,13 @@ const styles = StyleSheet.create({
   categoryText: {
     marginTop: 5,
     fontWeight: "500",
-
-    textAlign: "center", // Center the text horizontally
+    textAlign: "center",
   },
   horizontalLine: {
     borderBottomColor: "gray",
     borderBottomWidth: 0.3,
-    marginVertical: 10, // Adjust as needed
+    marginVertical: 10,
   },
-
   barberTitle: {
     fontSize: 30,
     fontWeight: "bold",
@@ -229,3 +277,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+export default Home;

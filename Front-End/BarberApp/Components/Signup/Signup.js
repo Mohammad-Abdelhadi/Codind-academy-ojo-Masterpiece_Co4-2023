@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Alert,
   Keyboard,
   KeyboardAvoidingView,
   Text,
@@ -10,81 +9,66 @@ import {
   View,
   Image,
 } from "react-native";
-import { Button, SocialIcon, CheckBox } from "react-native-elements";
+import { Button, CheckBox } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import axios from "axios";
 import styles from "../Style"; // Make sure to import your style file
 
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  password: Yup.string()
+    .required("Password is required")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      "Wrong password , Example : aA12345678#"
+    ),
+  role: Yup.string(),
+});
+
 const SignUp = () => {
   const navigation = useNavigation();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isChecked, setChecked] = useState(false);
-
-  const [usernameError, setUsernameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [error, setError] = useState(""); // State to store and display errors
 
   const onLogInPress = () => {
     navigation.navigate("Login");
   };
 
-  //   const fetchPost = async () => {
-  //     try {
-  //       const response = await axios.post("local/users/add-user", {
-  //         username,
-  //         email,
-  //         password,
-  //       });
-  //       console.log("Response:", response.data);
-  //       navigation.navigate("Login");
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //       console.error("Error response:", error.response);
-  //     }
-  //   };
+  const fetchPost = async (values) => {
+    try {
+      const response = await axios.post(
+        "https://barberapp.onrender.com/api/user/signup",
+        {
+          email: values.email,
+          password: values.password,
+          role: values.role || "user", // Set default role if not provided
+        }
+      );
+      console.log("Response:", response.data);
+      navigation.navigate("Login");
+    } catch (error) {
 
-  //   const onSignUpPress = async () => {
-  //     let hasError = false;
-
-  //     if (!username) {
-  //       setUsernameError("Username is required");
-  //       hasError = true;
-  //     }
-
-  //     if (!email) {
-  //       setEmailError("Email is required");
-  //       hasError = true;
-  //     } else if (!isValidEmail(email)) {
-  //       setEmailError("Invalid email format");
-  //       hasError = true;
-  //     }
-
-  //     if (!password) {
-  //       setPasswordError("Password is required");
-  //       hasError = true;
-  //     }
-
-  //     if (hasError) {
-  //       return;
-  //     }
-
-  //     try {
-  //       await fetchPost();
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   const isValidEmail = (email) => {
-  //     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  //     return emailPattern.test(email);
-  //   };
-
-  const handleToggleCheckbox = () => {
-    setChecked(!isChecked);
+      if (error.response && error.response.status === 409) {
+        setError("Email is already registered");
+      } else {
+        setError("Email is already registered");
+      }
+    }
   };
+
+  const handleSignUp = async (values) => {
+    try {
+      setError(""); // Clear any previous errors
+      await fetchPost(values);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const [isRoleHidden, setIsRoleHidden] = useState(true);
 
   return (
     <KeyboardAvoidingView style={styles.containerView} behavior="padding">
@@ -92,7 +76,6 @@ const SignUp = () => {
         <View style={styles.loginScreenContainer}>
           <View style={styles.loginFormView}>
             <Image
-              //   source={require("../assets/logo.png")}
               style={{
                 width: 120,
                 height: 120,
@@ -103,60 +86,87 @@ const SignUp = () => {
             />
 
             <Text style={styles.logoText}>Sign Up</Text>
-            <TextInput
-              placeholder="Name"
-              placeholderColor="#c4c3cb"
-              style={styles.loginFormTextInput}
-              onChangeText={setUsername}
-              value={username}
-            />
-            {usernameError && (
-              <Text style={styles.errorText}>{usernameError}</Text>
-            )}
 
-            <TextInput
-              placeholder="Email"
-              placeholderColor="#c4c3cb"
-              style={styles.loginFormTextInput}
-              value={email}
-              onChangeText={setEmail}
-            />
-            {emailError && <Text style={styles.errorText}>{emailError}</Text>}
+            <Formik
+              initialValues={{ email: "", password: "", role: "" }}
+              onSubmit={(values) => handleSignUp(values)}
+              validationSchema={validationSchema}
+            >
+              {({
+                values,
+                handleChange,
+                handleSubmit,
+                errors,
+                touched,
+                isValid,
+              }) => (
+                <>
+                  {!isRoleHidden && (
+                    <>
+                      <TextInput
+                        placeholder="Role"
+                        placeholderColor="#c4c3cb"
+                        style={[
+                          styles.loginFormTextInput,
+                          isRoleHidden && { display: "none" },
+                        ]}
+                        onChangeText={handleChange("role")}
+                        value={values.role}
+                      />
+                      {touched.role && errors.role && !isRoleHidden && (
+                        <Text style={styles.errorText}>{errors.role}</Text>
+                      )}
+                    </>
+                  )}
 
-            <TextInput
-              placeholder="Password"
-              placeholderColor="#c4c3cb"
-              style={styles.loginFormTextInput}
-              secureTextEntry={true}
-              value={password}
-              onChangeText={setPassword}
-            />
-            {passwordError && (
-              <Text style={styles.errorText}>{passwordError}</Text>
-            )}
+                  <TextInput
+                    placeholder="Email"
+                    placeholderColor="#c4c3cb"
+                    style={styles.loginFormTextInput}
+                    onChangeText={handleChange("email")}
+                    value={values.email}
+                  />
+                  {touched.email && errors.email && (
+                    <Text style={styles.errorText}>{errors.email}</Text>
+                  )}
 
-            <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
-              <TouchableOpacity
-                style={styles.checkboxContainer}
-                onPress={handleToggleCheckbox}
-              >
-                <View style={[styles.checkbox, isChecked && styles.checked]} />
-              </TouchableOpacity>
-              <Text
-                style={{
-                  color: "grey",
-                }}
-              >
-                Remember Me
-              </Text>
-            </View>
-            <Button
-              buttonStyle={styles.loginButton}
-              style={{ marginTop: 40 }}
-              //   onPress={() => onSignUpPress()}
-              onPress={() => navigation.navigate("login")}
-              title="Sign Up"
-            />
+                  <TextInput
+                    placeholder="Password"
+                    placeholderColor="#c4c3cb"
+                    style={styles.loginFormTextInput}
+                    secureTextEntry={true}
+                    onChangeText={handleChange("password")}
+                    value={values.password}
+                  />
+                  {touched.password && errors.password && (
+                    <Text style={styles.errorText}>{errors.password}</Text>
+                  )}
+
+                  {error && <Text style={styles.errorText}>{error}</Text>}
+
+                  <View
+                    style={{ flexDirection: "row", alignItems: "flex-end" }}
+                  >
+                    <TouchableOpacity
+                      style={styles.checkboxContainer}
+                      onPress={handleSubmit}
+                    >
+                      <View style={[styles.checkbox, styles.checked]} />
+                    </TouchableOpacity>
+                    <Text style={{ color: "grey" }}>Remember Me</Text>
+                  </View>
+
+                  <Button
+                    buttonStyle={styles.loginButton}
+                    style={{ marginTop: 40 }}
+                    onPress={handleSubmit}
+                    title="Sign Up"
+                    disabled={!isValid}
+                  />
+                </>
+              )}
+            </Formik>
+
             <View
               style={{
                 flexDirection: "row",

@@ -1,6 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
-  Alert,
   Keyboard,
   KeyboardAvoidingView,
   Text,
@@ -13,26 +12,23 @@ import {
 import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
+import styles from "../Style";
 
-import styles from "../Style"; // Make sure to import your style file
-// import { AppContext } from "../components/Context";
-export default function LoginScreen() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [loginError, setLoginError] = useState(""); // New state for login error
+  const [loginError, setLoginError] = useState("");
   const navigation = useNavigation();
-  //   const { setData } = useContext(AppContext);
+
   const validateEmail = () => {
     if (!email) {
       setEmailError("Email is required");
       return false;
     }
-    if (!isValidEmail(email)) {
-      setEmailError("Invalid email format");
-      return false;
-    }
+    // You can add more email validation logic here if needed
     setEmailError("");
     return true;
   };
@@ -46,47 +42,95 @@ export default function LoginScreen() {
     return true;
   };
 
-  const isValidEmail = (email) => {
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return emailPattern.test(email);
-  };
-
-  //   const fetchPost = async () => {
-  //     if (validateEmail() && validatePassword()) {
-  //       try {
-  //         const response = await axios.post(
-  //           "https://backend-e-commerce-nffh.onrender.com/users",
-  //           {
-  //             email,
-  //             password,
-  //           }
-  //         );
-  //         // console.log("Response:", response.data);
-  //         if (response.data === "Email or password not exist") {
-  //           setLoginError("Invalid email or password"); // Set the login error message
-  //         } else {
-  //           navigation.navigate("home");
-  //           const data = [
-  //             response.data[0].username,
-  //             response.data[0].email,
-  //             response.data[0].id,
-  //           ];
-
-  //           setData(data);
-  //         }
-  //       } catch (error) {
-  //         console.error("Error:", error);
-  //         console.error("Error response:", error.response);
-  //       }
-  //     }
-  //   };
-
-  // const onForgotPasswordPress = () => {
-  //   navigation.navigate("ForgotPassword");
-  // };
-
   const onSignUpPress = () => {
     navigation.navigate("signup");
+  };
+
+  // const handleLogin = async () => {
+  //   if (!validateEmail() && !validatePassword()) {
+  //     return;
+  //   }
+
+  //   try {
+  //     const loginResponse = await axios.post(
+  //       "https://barberapp.onrender.com/api/user/login",
+  //       {
+  //         email,
+  //         password,
+  //       },
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     if (loginResponse.status === 200) {
+  //       const authToken = loginResponse.data.token;
+  //       const appointments = loginResponse.data.appointments;
+
+  //       // Decode the JWT token to get the user ID
+  //       const decodedToken = jwtDecode(authToken);
+  //       const userIdFromToken = decodedToken._id;
+
+  //       // Print the user ID in the console
+  //       console.log("User ID:", userIdFromToken);
+
+  //       navigation.navigate("Home", {
+  //         userEmail: loginResponse.data.email,
+  //         authToken,
+  //         appointments,
+  //         userId: userIdFromToken, // Pass the user ID as a parameter
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error logging in:", error);
+  //     setLoginError("Login failed. Please check your credentials.");
+  //   }
+  // };
+
+  const handleLogin = async () => {
+    if (!validateEmail() && !validatePassword()) {
+      return;
+    }
+
+    try {
+      const loginResponse = await axios.post(
+        "https://barberapp.onrender.com/api/user/login",
+        {
+          email,
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (loginResponse.status === 200) {
+        // Decode the JWT token to get the user ID
+        const decodedToken = jwtDecode(loginResponse.data.token);
+        const userIdFromToken = decodedToken._id; // Extract userId from the decoded token
+
+        const appointments = loginResponse.data.appointments;
+
+        // Print the user ID in the console
+        console.log("Auth Token:", decodedToken);
+        console.log("User Email:", loginResponse.data.email);
+        console.log("User ID:", userIdFromToken);
+
+        navigation.navigate("Home", {
+          userEmail: loginResponse.data.email,
+          authToken: loginResponse.data.token, // Make sure to include authToken
+          appointments,
+          userId: userIdFromToken,
+        });
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
+      setLoginError("Login failed. Please check your credentials.");
+    }
   };
 
   return (
@@ -95,7 +139,7 @@ export default function LoginScreen() {
         <View style={styles.loginScreenContainer}>
           <View style={styles.loginFormView}>
             <Image
-              //   source={require("../assets/logo.png")}
+              // source={require("../assets/logo.png")}
               style={{
                 width: 120,
                 height: 120,
@@ -133,8 +177,7 @@ export default function LoginScreen() {
             {/* </TouchableOpacity> */}
             <Button
               buttonStyle={styles.loginButton}
-              //   onPress={fetchPost}
-              onPress={() => navigation.navigate("Home")}
+              onPress={handleLogin}
               title="Login"
             />
             <View
