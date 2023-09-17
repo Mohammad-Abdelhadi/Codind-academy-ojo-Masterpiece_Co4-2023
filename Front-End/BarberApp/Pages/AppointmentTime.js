@@ -22,6 +22,7 @@ const AppointmentTime = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
+  const [selectedDateTime, setSelectedDateTime] = useState("");
 
   const handleTimePress = (time) => {
     setSelectedTime(time);
@@ -45,6 +46,7 @@ const AppointmentTime = () => {
           },
           services: selectedServices,
           time: selectedTime,
+          date: selectedDateTime,
           status: "pending",
         },
       ],
@@ -64,6 +66,7 @@ const AppointmentTime = () => {
       const responseBody = response.data;
 
       console.log("Response Body:", responseBody);
+      console.log("Selected Date:", selectedDateTime);
 
       if (response.status === 201) {
         const firstAppointment = responseBody.appointments[0];
@@ -110,7 +113,9 @@ const AppointmentTime = () => {
       </View>
       <Calendar
         onDayPress={(day) => {
-          setSelected(day.dateString);
+          const selectedDate = day.dateString;
+          setSelectedDateTime(`${selectedDate} ${selectedTime}`);
+          setSelected(selectedDate);
         }}
         markedDates={{
           [selected]: {
@@ -120,6 +125,7 @@ const AppointmentTime = () => {
           },
         }}
       />
+
       <View>
         <Text style={styles.allHeaders}>Select Hours</Text>
       </View>

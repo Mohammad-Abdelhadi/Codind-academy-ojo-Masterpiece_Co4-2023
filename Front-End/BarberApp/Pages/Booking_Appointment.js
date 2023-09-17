@@ -23,10 +23,10 @@ const Booking_Appointment = () => {
   const [selectedItem, setSelectedItem] = useState(null); // Track the selected item
   const [selectedService, setSelectedServices] = useState([]); // Track selected services
   const data = [
-    { id: 1, name: "mohamad" },
-    { id: 2, name: "ahmad" },
-    { id: 3, name: "zaki" },
-    { id: 4, name: "bassam" },
+    { id: 1, name: "Mohammad",rating:5, imageSource: barbar },
+    { id: 2, name: "Messi ",rating:4.5, imageSource: barbar },
+    { id: 3, name: "Alawi",rating:4.8, imageSource: barbar },
+    { id: 4, name: "bassam",rating:4.9, imageSource: barbar },
   ];
 
   const services = [
@@ -206,9 +206,9 @@ const Booking_Appointment = () => {
                 selectedItem === item.id && styles.selectedSpecialist, // Apply a border style if selected
               ]}
             >
-              {/* <Image source={item.imageSource} style={styles.SpecialistImage} /> */}
+              <Image source={item.imageSource} style={styles.SpecialistImage} />
               <Text>{item.name}</Text>
-              {/* <Text>⭐{item.rating} Stars</Text> */}
+              <Text>⭐{item.rating} Stars</Text>
             </TouchableOpacity>
           )}
         />
@@ -239,14 +239,16 @@ const Booking_Appointment = () => {
                 alignItems: "center",
               }}
             >
-              <Text>{item.time} </Text>
-              <Text>${item.price} </Text>
+              <Text style={{marginBottom:5}}>{item.time} Min </Text>
+              <Text style={{ color: "orange", fontWeight: "bold" }}>
+                ${item.price}.00
+              </Text>
             </View>
           </TouchableOpacity>
         )}
       />
       <TouchableOpacity style={styles.continueBtn} onPress={handleFormSubmit}>
-        <Text>
+        <Text style={{fontWeight:"bold"}}>
           Total Price: ${calculateTotalPriceAndTime().totalPrice} - Total Time:{" "}
           {calculateTotalPriceAndTime().totalTime} mins
         </Text>
@@ -330,7 +332,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     height: 50,
-    width: 350,
+    width: 370,
     borderRadius: 32,
   },
 });
