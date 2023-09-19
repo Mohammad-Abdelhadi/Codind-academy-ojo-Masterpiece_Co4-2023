@@ -55,7 +55,7 @@ const CurrentAppointments = () => {
             style={styles.button}
             onPress={handleFormSubmitCurrentAppointments}
           >
-            <Text>CurrentAppointments</Text>
+            <Text>Live Appointments</Text>
           </TouchableOpacity>
         </View>
       </View>

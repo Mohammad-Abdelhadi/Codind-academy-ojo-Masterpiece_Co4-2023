@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,17 +10,89 @@ import {
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
+import axios from "axios";
 
 import logo from "../assets/backarrow.png";
-import banner from "../assets/banner.jpg";
 import onboarding from "../assets/onboarding.png";
 import { Ionicons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
+
 const MyAppointments = () => {
   const route = useRoute();
   const userId = route.params?.userId;
   const userEmail = route.params?.userEmail;
   const navigation = useNavigation();
+  const [appointments, setAppointments] = useState([]);
+
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case "accepted":
+        return styles.appointmentStatusAccepted;
+      case "rejected":
+        return styles.appointmentStatusRejected;
+      case "completed":
+        return styles.appointmentStatusCompleted;
+      default:
+        return styles.appointmentStatusPending;
+    }
+  };
+
+  const renderAppointments = () => {
+    return appointments.map((appointment, index) => (
+      <View key={index}>
+        <View style={styles.barberContainer}>
+          <View style={styles.barberSection}>
+            <View style={styles.TimeAndStatus}>
+              <Text style={styles.appointmentdateandtime}>
+                {appointment.date} - {appointment.time}
+              </Text>
+              <Text style={getStatusStyle(appointment.status)}>
+                {appointment.status}
+              </Text>
+            </View>
+            <View style={styles.horizontalLine}></View>
+            <View style={styles.barberInfo}>
+              <Image source={onboarding} style={styles.barberImage} />
+              <View style={styles.barberTextContainer}>
+                <Text style={[styles.barberText, { fontWeight: "bold" }]}>
+                  {appointment.barber.name}
+                </Text>
+                <Text style={styles.barberText}>
+                  {appointment.barber.id} Amman, jawa
+                </Text>
+                <Text style={styles.barberText}>Services:</Text>
+                {appointment.services.map((service) => (
+                  <Text key={service.id} style={styles.barberText}>
+                    {service.name}
+                  </Text>
+                ))}
+              </View>
+              <MaterialIcons name="favorite-outline" size={24} color="black" />
+            </View>
+          </View>
+          <View style={styles.gap}></View>
+        </View>
+      </View>
+    ));
+  };
+
+  const fetchAppointments = async () => {
+    try {
+      const response = await axios.get(
+        `https://barberapp.onrender.com/api/user/getAppointmentsForUser/${userId}`
+      );
+
+      if (response.status === 200) {
+        setAppointments(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching appointments:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAppointments();
+  }, []); // Fetch appointments when the component mounts
 
   const handleFormSubmitHome = () => {
     navigation.navigate("Home", {
@@ -28,12 +100,14 @@ const MyAppointments = () => {
       userEmail: userEmail,
     });
   };
+
   const handleFormSubmitMyAppointments = () => {
     navigation.navigate("MyAppointments", {
       userId: userId,
       userEmail: userEmail,
     });
   };
+
   const handleFormSubmitCurrentAppointments = () => {
     navigation.navigate("CurrentAppointments", {
       userId: userId,
@@ -43,70 +117,16 @@ const MyAppointments = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <View style={styles.headerContainer}>
-          <Image source={logo} />
-          <Text style={styles.headerText}>My Appointments</Text>
-          <View style={styles.iconsContainer}>
-            <MaterialIcons name="favorite-outline" size={24} color="black" />
-            <Ionicons name="notifications-outline" size={24} color="black" />
-          </View>
+      <View style={styles.headerContainer}>
+        <Image source={logo} />
+        <Text style={styles.headerText}>Appointments ({appointments.length})</Text>
+        <View style={styles.iconsContainer}>
+          <MaterialIcons name="favorite-outline" size={24} color="black" />
+          <Ionicons name="notifications-outline" size={24} color="black" />
         </View>
-        <ScrollView>
-          <View style={styles.barberContainer}>
-            <View style={styles.barberSection}>
-              <View style={styles.TimeAndStatus}>
-                <Text style={styles.appointmentdateandtime}>
-                  Nov-20-2023 - 15:00 PM
-                </Text>
-                <Text style={styles.appointmentStatusPending}>Pending</Text>
-                {/* <Text style={styles.appointmentStatusAccepted}>Accepted</Text> */}
-                {/* <Text style={styles.appointmentStatusRejected}>Rejected</Text> */}
-                {/* <Text style={styles.appointmentStatusCompleted}>Completed</Text> */}
-              </View>
-              <View style={styles.horizontalLine}></View>
-              <View style={styles.barberInfo}>
-                <Image source={onboarding} style={styles.barberImage} />
-                <View style={styles.barberTextContainer}>
-                  <Text style={[styles.barberText, { fontWeight: "bold" }]}>
-                    Mohammad Bassam
-                  </Text>
-                  <Text style={styles.barberText}>0093 Amman, jawa</Text>
-                  <Text style={styles.barberText}>Services:</Text>
-                </View>
-                <MaterialIcons
-                  name="favorite-outline"
-                  size={24}
-                  color="black"
-                />
-              </View>
-            </View>
-            {/* White gap */}
-
-            <View style={styles.gap}></View>
-
-            <View style={styles.barberSection}>
-              <View style={styles.barberInfo}>
-                <Image source={onboarding} style={styles.barberImage} />
-                <View style={styles.barberTextContainer}>
-                  <Text style={[styles.barberText, { fontWeight: "bold" }]}>
-                    Mohammad Bassam
-                  </Text>
-                  <Text style={styles.barberText}>0093 Amman, jawa</Text>
-                  <Text style={styles.barberText}>Services:</Text>
-                </View>
-                <MaterialIcons
-                  name="favorite-outline"
-                  size={24}
-                  color="black"
-                />
-              </View>
-            </View>
-          </View>
-        </ScrollView>
       </View>
+      <ScrollView style={styles.scrollView}>{renderAppointments()}</ScrollView>
       <View style={styles.content}>
-        <Text>MyAppointments</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
@@ -124,7 +144,7 @@ const MyAppointments = () => {
             style={styles.button}
             onPress={handleFormSubmitCurrentAppointments}
           >
-            <Text>CurrentAppointments</Text>
+            <Text>Live Appointments</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -138,10 +158,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fafafa",
   },
   content: {
-    padding: 16,
-
+    padding: 10,
+    height: 70,
+  },
+  scrollView: {
     flex: 1,
-    justifyContent: "flex-end",
   },
   buttonContainer: {
     flexDirection: "row",
@@ -159,6 +180,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 120,
     borderRadius: 10,
+    marginHorizontal: 3,
   },
   barberContainer: {
     flexDirection: "column",
@@ -166,22 +188,15 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   barberSection: {
-    backgroundColor: "white", // White background for each barber section
+    backgroundColor: "white",
     padding: 16,
     borderRadius: 30,
   },
   gap: {
-    height: 20, // Adjust the height to control the gap size
-  },
-
-  barberTitle: {
-    fontSize: 12,
-    fontWeight: "bold",
-    marginVertical: 10,
+    height: 20,
   },
   barberInfo: {
     flexDirection: "row",
-    marginTop: 10,
   },
   barberImage: {
     width: 100,
@@ -197,7 +212,6 @@ const styles = StyleSheet.create({
   },
   barberText: {
     fontSize: 13,
-    // marginTop: 5,
   },
   headerContainer: {
     flexDirection: "row",
@@ -209,7 +223,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   headerText: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: "bold",
   },
   iconsContainer: {
@@ -223,11 +237,11 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   horizontalLine: {
-    borderBottomColor: "black", // Change the color to a contrasting color (e.g., black)
-    borderBottomWidth: 0.3, // Increase the border width to make it more visible
+    borderBottomColor: "black",
+    borderBottomWidth: 0.3,
     marginVertical: 10,
-    alignSelf: "center", // Center the line horizontally within its parent container
-    width: "90%", // Set the desired width
+    alignSelf: "center",
+    width: "90%",
   },
   TimeAndStatus: {
     flex: 1,
@@ -239,12 +253,12 @@ const styles = StyleSheet.create({
   appointmentStatusCompleted: {
     backgroundColor: "#009eff",
     color: "white",
-    padding: 5,
+    padding: 10,
   },
   appointmentStatusRejected: {
     backgroundColor: "#e31a1c",
     color: "white",
-    padding: 5,
+    padding: 10,
   },
   appointmentStatusPending: {
     backgroundColor: "#ffc800",
@@ -254,11 +268,10 @@ const styles = StyleSheet.create({
   appointmentStatusAccepted: {
     backgroundColor: "#65c728",
     color: "white",
-    padding: 5,
+    padding: 10,
   },
   appointmentdateandtime: {
-    fontWeight: "400",
-
+    fontWeight: "500",
     fontSize: 16,
   },
 });

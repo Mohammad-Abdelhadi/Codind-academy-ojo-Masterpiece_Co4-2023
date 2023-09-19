@@ -89,7 +89,7 @@ const Home = ({ navigation }) => {
   // Use useEffect to fetch user appointments when the component mounts
   useEffect(() => {
     fetchUserAppointments();
-  }, []); // The empty dependency array ensures this effect runs once when the component mounts
+  }, [userAppointments]); // The empty dependency array ensures this effect runs once when the component mounts
 
   const UserEmail = userEmail ? userEmail.split("@")[0] : "Guest";
 
@@ -184,7 +184,7 @@ const Home = ({ navigation }) => {
             style={styles.btnBar}
             onPress={handleFormSubmitCurrentAppointments}
           >
-            <Text>CurrentAppointments</Text>
+            <Text>Live Appointments</Text>
           </TouchableOpacity>
         </View>
         {/* <TouchableOpacity style={styles.continueBtn} onPress={handleFormSubmit}>
