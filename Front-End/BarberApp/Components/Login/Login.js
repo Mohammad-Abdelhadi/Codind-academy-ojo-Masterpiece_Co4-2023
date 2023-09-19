@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import styles from "../Style";
+import { AsyncStorage } from "react-native";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -45,50 +46,7 @@ export default function Login() {
   const onSignUpPress = () => {
     navigation.navigate("signup");
   };
-
-  // const handleLogin = async () => {
-  //   if (!validateEmail() && !validatePassword()) {
-  //     return;
-  //   }
-
-  //   try {
-  //     const loginResponse = await axios.post(
-  //       "https://barberapp.onrender.com/api/user/login",
-  //       {
-  //         email,
-  //         password,
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-
-  //     if (loginResponse.status === 200) {
-  //       const authToken = loginResponse.data.token;
-  //       const appointments = loginResponse.data.appointments;
-
-  //       // Decode the JWT token to get the user ID
-  //       const decodedToken = jwtDecode(authToken);
-  //       const userIdFromToken = decodedToken._id;
-
-  //       // Print the user ID in the console
-  //       console.log("User ID:", userIdFromToken);
-
-  //       navigation.navigate("Home", {
-  //         userEmail: loginResponse.data.email,
-  //         authToken,
-  //         appointments,
-  //         userId: userIdFromToken, // Pass the user ID as a parameter
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error("Error logging in:", error);
-  //     setLoginError("Login failed. Please check your credentials.");
-  //   }
-  // };
-
+  // potato code
   const handleLogin = async () => {
     if (!validateEmail() && !validatePassword()) {
       return;
@@ -113,7 +71,7 @@ export default function Login() {
         const decodedToken = jwtDecode(loginResponse.data.token);
         const userIdFromToken = decodedToken._id; // Extract userId from the decoded token
 
-        const appointments = loginResponse.data.appointments;
+        const appointments = loginResponse.data.appointments || [];
 
         // Print the user ID in the console
         console.log("Auth Token:", decodedToken);
@@ -122,8 +80,8 @@ export default function Login() {
 
         navigation.navigate("Home", {
           userEmail: loginResponse.data.email,
-          authToken: loginResponse.data.token, // Make sure to include authToken
-          appointments,
+          authToken: loginResponse.data.token,
+          appointments: loginResponse.data.appointments,
           userId: userIdFromToken,
         });
       }

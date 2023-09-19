@@ -23,10 +23,10 @@ const Booking_Appointment = () => {
   const [selectedItem, setSelectedItem] = useState(null); // Track the selected item
   const [selectedService, setSelectedServices] = useState([]); // Track selected services
   const data = [
-    { id: 1, name: "Mohammad",rating:5, imageSource: barbar },
-    { id: 2, name: "Messi ",rating:4.5, imageSource: barbar },
-    { id: 3, name: "Alawi",rating:4.8, imageSource: barbar },
-    { id: 4, name: "bassam",rating:4.9, imageSource: barbar },
+    { id: 1, name: "Mohammad", rating: 5, imageSource: barbar },
+    { id: 2, name: "Messi ", rating: 4.5, imageSource: barbar },
+    { id: 3, name: "Alawi", rating: 4.8, imageSource: barbar },
+    { id: 4, name: "bassam", rating: 4.9, imageSource: barbar },
   ];
 
   const services = [
@@ -139,11 +139,14 @@ const Booking_Appointment = () => {
       console.error("Please select at least one service.");
       return;
     }
+    const { totalPrice, totalTime } = calculateTotalPriceAndTime();
 
     // Navigate to the AppointmentTime page and pass the data as params
     navigation.navigate("AppointmentTime", {
       userEmail: userEmail,
       userId: userId,
+      totalPrice: totalPrice,
+      totalTime: totalTime,
       selectedBarber: data.find((item) => item.id === selectedItem), // Get the selected barber object
       selectedServices: selectedService.map((serviceId) => ({
         ...services.find((service) => service.id === serviceId),
@@ -239,7 +242,7 @@ const Booking_Appointment = () => {
                 alignItems: "center",
               }}
             >
-              <Text style={{marginBottom:5}}>{item.time} Min </Text>
+              <Text style={{ marginBottom: 5 }}>{item.time} Min </Text>
               <Text style={{ color: "orange", fontWeight: "bold" }}>
                 ${item.price}.00
               </Text>
@@ -248,7 +251,7 @@ const Booking_Appointment = () => {
         )}
       />
       <TouchableOpacity style={styles.continueBtn} onPress={handleFormSubmit}>
-        <Text style={{fontWeight:"bold"}}>
+        <Text style={{ fontWeight: "bold" }}>
           Total Price: ${calculateTotalPriceAndTime().totalPrice} - Total Time:{" "}
           {calculateTotalPriceAndTime().totalTime} mins
         </Text>

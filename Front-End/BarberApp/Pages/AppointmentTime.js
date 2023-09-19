@@ -18,6 +18,8 @@ const AppointmentTime = () => {
   const userId = route.params?.userId;
   const selectedServices = route.params?.selectedServices;
   const userEmail = route.params?.userEmail;
+  const totalPrice = route.params?.totalPrice;
+  const totalTime = route.params?.totalTime;
 
   const navigation = useNavigation();
   const [selected, setSelected] = useState("");
@@ -32,6 +34,7 @@ const AppointmentTime = () => {
     // Check if a time is selected
     if (!selectedTime) {
       console.error("Please select a time.");
+      // Display an error message to the user
       return;
     }
 
@@ -67,6 +70,8 @@ const AppointmentTime = () => {
 
       console.log("Response Body:", responseBody);
       console.log("Selected Date:", selectedDateTime);
+      console.log("total price :", totalPrice);
+      console.log("total totalTime :", totalTime);
 
       if (response.status === 201) {
         const firstAppointment = responseBody.appointments[0];
@@ -79,9 +84,13 @@ const AppointmentTime = () => {
         });
       } else {
         console.error("Error:", response.status, response.statusText);
+        // Display an error message to the user
+        // Handle other types of errors here, if needed
       }
     } catch (error) {
       console.error("Network error:", error);
+      // Display an error message to the user
+      // Handle network errors here
     }
   };
 

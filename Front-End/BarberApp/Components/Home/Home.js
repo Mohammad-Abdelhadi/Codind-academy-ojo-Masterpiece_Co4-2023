@@ -16,6 +16,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import NavBar from "../Navbar/Navbar";
 
 // import NavBar from "../Navbar/Navbar";
 const categoryData = [
@@ -32,8 +33,9 @@ const categoryIconMapping = {
   shaves: "ios-heart",
 };
 
-const Home = () => {
-  const navigation = useNavigation();
+const Home = ({ navigation }) => {
+  // const navigation = useNavigation();
+
   const route = useRoute();
   const authToken = route.params?.authToken;
   const userId = route.params?.userId;
@@ -43,6 +45,24 @@ const Home = () => {
   const [userAppointments, setUserAppointments] = useState([]);
   const handleFormSubmit = () => {
     navigation.navigate("Booking_Appointment", {
+      userId: userId,
+      userEmail: userEmail,
+    });
+  };
+  const handleFormSubmitHome = () => {
+    navigation.navigate("Home", {
+      userId: userId,
+      userEmail: userEmail,
+    });
+  };
+  const handleFormSubmitMyAppointments = () => {
+    navigation.navigate("MyAppointments", {
+      userId: userId,
+      userEmail: userEmail,
+    });
+  };
+  const handleFormSubmitCurrentAppointments = () => {
+    navigation.navigate("CurrentAppointments", {
       userId: userId,
       userEmail: userEmail,
     });
@@ -69,7 +89,7 @@ const Home = () => {
   // Use useEffect to fetch user appointments when the component mounts
   useEffect(() => {
     fetchUserAppointments();
-  }, [userAppointments]); // The empty dependency array ensures this effect runs once when the component mounts
+  }, []); // The empty dependency array ensures this effect runs once when the component mounts
 
   const UserEmail = userEmail ? userEmail.split("@")[0] : "Guest";
 
@@ -138,10 +158,42 @@ const Home = () => {
         <Text style={styles.barberTitle}>Our Barbers ✌</Text>
         {/* <Barbers /> */}
         <TouchableOpacity style={styles.continueBtn} onPress={handleFormSubmit}>
-          <Text>hello</Text>
+          <Text>Home</Text>
         </TouchableOpacity>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+          }}
+        >
+          <TouchableOpacity
+            style={styles.btnBar}
+            onPress={handleFormSubmitHome}
+          >
+            <Text>Home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnBar}
+            onPress={handleFormSubmitMyAppointments}
+          >
+            <Text>MyAppointments</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnBar}
+            onPress={handleFormSubmitCurrentAppointments}
+          >
+            <Text>CurrentAppointments</Text>
+          </TouchableOpacity>
+        </View>
+        {/* <TouchableOpacity style={styles.continueBtn} onPress={handleFormSubmit}>
+          <Text>hello</Text>
+        </TouchableOpacity> */}
       </View>
-      {/* <NavBar /> */}
+      {/* <View>
+        <NavBar />
+      </View> */}
     </SafeAreaView>
   );
 };
@@ -162,6 +214,17 @@ const styles = StyleSheet.create({
     height: 50,
     width: 370,
     borderRadius: 32,
+  },
+  btnBar: {
+    backgroundColor: "orange",
+    color: "white",
+    fontWeight: "700",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    height: 50,
+    width: 120,
   },
   headerContainer: {
     flexDirection: "row",

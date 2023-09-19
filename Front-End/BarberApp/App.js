@@ -16,51 +16,37 @@ import AppointmentTime from "./Pages/AppointmentTime";
 import Succssess from "./Pages/Succssess";
 import MyAppointments from "./Pages/MyAppointments";
 import CurrentAppointments from "./Pages/CurrentAppointments";
+import HomeContainer from "./Components/Navbar/HomeContainer";
+import { useRoute } from "@react-navigation/native";
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
-
-const MainTabs = () => {
-  return (
-    <Tab.Navigator
-      initialRouteName="Home"
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
-          if (route.name === "Home") {
-            iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "MyAppointments") {
-            iconName = focused ? "cart" : "cart-outline";
-          } else if (route.name === "login") {
-            iconName = focused ? "person" : "person-outline";
-          }
-
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: "orange",
-        tabBarInactiveTintColor: "#808080",
-        tabBarLabelStyle: { fontSize: 12, fontWeight: "bold" },
-      })}
-    >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="MyAppointments" component={MyAppointments} />
-      <Tab.Screen name="login" component={login} />
-    </Tab.Navigator>
-  );
-};
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="signup" headerMode="none">
-        <Stack.Screen name="MainTabs" component={MainTabs} />
+      <Stack.Navigator initialRouteName="Home" headerMode="none">
         <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            gestureEnabled: false,
+            headerLeft: null,
+            headerShown: false,
+          }}
+        />
+        {/* <Stack.Screen
+          name="Home"
+          component={HomeContainer}
+          options={{
+            gestureEnabled: false,
+            headerLeft: null,
+            headerShown: false,
+          }}
+        /> */}
         <Stack.Screen name="onboardingthree" component={onboardingthree} />
         <Stack.Screen name="Login" component={login} />
         <Stack.Screen name="signup" component={signup} />
-        <Stack.Screen name="Home" component={Home} />
-
         <Stack.Screen
           name="Booking_Appointment"
           component={Booking_Appointment}
@@ -69,6 +55,11 @@ const App = () => {
         <Stack.Screen name="Succssess" component={Succssess} />
         <Stack.Screen name="onboadringone" component={onboadringone} />
         <Stack.Screen name="onboadringtwo" component={onboadringtwo} />
+        <Stack.Screen name="MyAppointments" component={MyAppointments} />
+        <Stack.Screen
+          name="CurrentAppointments"
+          component={CurrentAppointments}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
