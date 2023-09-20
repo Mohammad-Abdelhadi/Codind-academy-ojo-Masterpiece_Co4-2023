@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -14,24 +14,21 @@ import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import styles from "../Style"; // Make sure to import your style file
+import { ErrorMessage } from "formik"; // Import ErrorMessage from Formik
 
+import styles from "../Style"; // Make sure to import your style file
+import { useState } from "react";
 const validationSchema = Yup.object().shape({
+  role: Yup.string().required("Role is required"),
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
-  password: Yup.string()
-    .required("Password is required")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      "Wrong password , Example : aA12345678#"
-    ),
-  role: Yup.string(),
+  password: Yup.string().required("Password is required"),
 });
 
 const SignUp = () => {
   const navigation = useNavigation();
-  const [error, setError] = useState(""); // State to store and display errors
+  const [emailError, setEmailError] = useState(""); // State variable for email registration error
 
   const onLogInPress = () => {
     navigation.navigate("Login");
@@ -44,31 +41,31 @@ const SignUp = () => {
         {
           email: values.email,
           password: values.password,
-          role: values.role || "user", // Set default role if not provided
+          role: "user",
         }
       );
       console.log("Response:", response.data);
       navigation.navigate("Login");
     } catch (error) {
-
+      console.error("Error:", error);
+      console.error("Error response:", error.response);
+      // Handle duplicate email error if needed
       if (error.response && error.response.status === 409) {
-        setError("Email is already registered");
+        setEmailError("Email is already registered"); // Set the email error message
       } else {
-        setError("Email is already registered");
+        setEmailError(""); // Reset the email error message if it's not a duplicate email error
       }
     }
   };
 
   const handleSignUp = async (values) => {
     try {
-      setError(""); // Clear any previous errors
       await fetchPost(values);
     } catch (error) {
-      setError(error.message);
+      // Handle validation errors from fetchPost
+      throw new Yup.ValidationError(error.message);
     }
   };
-
-  const [isRoleHidden, setIsRoleHidden] = useState(true);
 
   return (
     <KeyboardAvoidingView style={styles.containerView} behavior="padding">
@@ -76,6 +73,7 @@ const SignUp = () => {
         <View style={styles.loginScreenContainer}>
           <View style={styles.loginFormView}>
             <Image
+              //   source={require("../assets/logo.png")}
               style={{
                 width: 120,
                 height: 120,
@@ -88,7 +86,7 @@ const SignUp = () => {
             <Text style={styles.logoText}>Sign Up</Text>
 
             <Formik
-              initialValues={{ email: "", password: "", role: "" }}
+              initialValues={{ role: "user", email: "", password: "" }}
               onSubmit={(values) => handleSignUp(values)}
               validationSchema={validationSchema}
             >
@@ -101,24 +99,6 @@ const SignUp = () => {
                 isValid,
               }) => (
                 <>
-                  {!isRoleHidden && (
-                    <>
-                      <TextInput
-                        placeholder="Role"
-                        placeholderColor="#c4c3cb"
-                        style={[
-                          styles.loginFormTextInput,
-                          isRoleHidden && { display: "none" },
-                        ]}
-                        onChangeText={handleChange("role")}
-                        value={values.role}
-                      />
-                      {touched.role && errors.role && !isRoleHidden && (
-                        <Text style={styles.errorText}>{errors.role}</Text>
-                      )}
-                    </>
-                  )}
-
                   <TextInput
                     placeholder="Email"
                     placeholderColor="#c4c3cb"
@@ -129,7 +109,12 @@ const SignUp = () => {
                   {touched.email && errors.email && (
                     <Text style={styles.errorText}>{errors.email}</Text>
                   )}
-
+                  {emailError ? (
+                    <Text style={[styles.errorText, { color: "red" }]}>
+                      {emailError}
+                    </Text>
+                  ) : null}
+                  {/* Display email error message */}
                   <TextInput
                     placeholder="Password"
                     placeholderColor="#c4c3cb"
@@ -138,12 +123,11 @@ const SignUp = () => {
                     onChangeText={handleChange("password")}
                     value={values.password}
                   />
-                  {touched.password && errors.password && (
-                    <Text style={styles.errorText}>{errors.password}</Text>
-                  )}
-
-                  {error && <Text style={styles.errorText}>{error}</Text>}
-
+                  <ErrorMessage
+                    name="password"
+                    component={Text}
+                    style={styles.errorText} // Add your error text styles
+                  />
                   <View
                     style={{ flexDirection: "row", alignItems: "flex-end" }}
                   >
@@ -153,9 +137,14 @@ const SignUp = () => {
                     >
                       <View style={[styles.checkbox, styles.checked]} />
                     </TouchableOpacity>
-                    <Text style={{ color: "grey" }}>Remember Me</Text>
+                    <Text
+                      style={{
+                        color: "grey",
+                      }}
+                    >
+                      Remember Me
+                    </Text>
                   </View>
-
                   <Button
                     buttonStyle={styles.loginButton}
                     style={{ marginTop: 40 }}

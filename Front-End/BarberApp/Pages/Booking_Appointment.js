@@ -19,6 +19,8 @@ const Booking_Appointment = () => {
   const route = useRoute();
   const userId = route.params?.userId;
   const userEmail = route.params?.userEmail;
+  const totalprice = route.params?.totalprice;
+  const totaltime = route.params?.totaltime;
 
   const [selectedItem, setSelectedItem] = useState(null); // Track the selected item
   const [selectedService, setSelectedServices] = useState([]); // Track selected services
@@ -63,70 +65,6 @@ const Booking_Appointment = () => {
     // Add other selected services here...
   ];
 
-  //submit booking
-  // const handleFormSubmit = async () => {
-  //   const selectedBarber = data.find((item) => item.id === selectedItem);
-
-  //   if (!selectedBarber) {
-  //     console.error("Selected barber not found.");
-  //     return;
-  //   }
-
-  //   // Get detailed service information for selected services
-  //   const selectedServicesDetails = services
-  //     .filter((service) => selectedService.includes(service.id))
-  //     .map((service) => ({
-  //       id: service.id,
-  //       name: service.name,
-  //       price: service.price,
-  //       time: service.time,
-  //     }));
-
-  //   const dataToSend = {
-  //     userId: userId,
-  //     appointments: [
-  //       {
-  //         barber: {
-  //           id: selectedBarber.id,
-  //           name: selectedBarber.name,
-  //         },
-  //         services: selectedServicesDetails, // Include service details
-  //         time: "10:00", // You should fill this with the selected time
-  //         status: "pending",
-  //       },
-  //     ],
-  //   };
-
-  //   try {
-  //     const response = await axios.post(
-  //       `https://barberapp.onrender.com/api/user/postAppointment/${userId}`,
-
-  //       dataToSend,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-
-  //     const responseBody = response.data; // Get the response data
-
-  //     console.log("Response Body:", responseBody);
-
-  //     if (response.status === 201) {
-  //       const firstAppointment = responseBody.appointments[0];
-  //       console.log("First Appointment:", firstAppointment);
-  //       console.log("user IDDDDDD:", userId);
-
-  //       navigation.navigate("AppointmentTime");
-  //     } else {
-  //       console.error("Error:", response.status, response.statusText);
-  //     }
-  //   } catch (error) {
-  //     console.error("Network error:", error);
-  //   }
-  // };
-
   const handleFormSubmit = () => {
     // Check if a barber is selected
     if (selectedItem === null) {
@@ -139,14 +77,14 @@ const Booking_Appointment = () => {
       console.error("Please select at least one service.");
       return;
     }
-    const { totalPrice, totalTime } = calculateTotalPriceAndTime();
+    const { totalprice, totaltime } = calculateTotalPriceAndTime();
 
     // Navigate to the AppointmentTime page and pass the data as params
     navigation.navigate("AppointmentTime", {
       userEmail: userEmail,
       userId: userId,
-      totalPrice: totalPrice,
-      totalTime: totalTime,
+      totalprice: totalprice,
+      totaltime: totaltime,
       selectedBarber: data.find((item) => item.id === selectedItem), // Get the selected barber object
       selectedServices: selectedService.map((serviceId) => ({
         ...services.find((service) => service.id === serviceId),
@@ -159,20 +97,20 @@ const Booking_Appointment = () => {
   };
 
   const calculateTotalPriceAndTime = () => {
-    let totalPrice = 0;
-    let totalTime = 0;
+    let totalprice = 0;
+    let totaltime = 0;
 
     selectedService.forEach((serviceId) => {
       const selectedServiceItem = services.find(
         (service) => service.id === serviceId
       );
       if (selectedServiceItem) {
-        totalPrice += parseFloat(selectedServiceItem.price);
-        totalTime += parseInt(selectedServiceItem.time);
+        totalprice += parseFloat(selectedServiceItem.price);
+        totaltime += parseInt(selectedServiceItem.time);
       }
     });
 
-    return { totalPrice: totalPrice.toFixed(2), totalTime };
+    return { totalprice: totalprice.toFixed(2), totaltime };
   };
 
   // Function to toggle selection of a service
@@ -244,7 +182,7 @@ const Booking_Appointment = () => {
             >
               <Text style={{ marginBottom: 5 }}>{item.time} Min </Text>
               <Text style={{ color: "orange", fontWeight: "bold" }}>
-                ${item.price}.00
+                {item.price}.00 JOD
               </Text>
             </View>
           </TouchableOpacity>
@@ -252,8 +190,8 @@ const Booking_Appointment = () => {
       />
       <TouchableOpacity style={styles.continueBtn} onPress={handleFormSubmit}>
         <Text style={{ fontWeight: "bold" }}>
-          Total Price: ${calculateTotalPriceAndTime().totalPrice} - Total Time:{" "}
-          {calculateTotalPriceAndTime().totalTime} mins
+          Total price: ${calculateTotalPriceAndTime().totalprice} - Total Time:{" "}
+          {calculateTotalPriceAndTime().totaltime} mins
         </Text>
       </TouchableOpacity>
     </View>

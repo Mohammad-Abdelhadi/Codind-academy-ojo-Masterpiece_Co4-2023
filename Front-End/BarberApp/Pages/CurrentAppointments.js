@@ -15,14 +15,17 @@ import axios from "axios";
 import logo from "../assets/backarrow.png";
 import onboarding from "../assets/onboarding.png";
 import { Ionicons } from "@expo/vector-icons";
-import { EvilIcons } from "@expo/vector-icons";
 
 const CurrentAppointments = () => {
   const route = useRoute();
   const userId = route.params?.userId;
   const userEmail = route.params?.userEmail;
+  const totalprice = route.params?.totalprice;
+  const totaltime = route.params?.totaltime;
+
   const navigation = useNavigation();
   const [appointments, setAppointments] = useState([]);
+  const [totalTimeSum, setTotalTimeSum] = useState(0);
 
   const getStatusStyle = (status) => {
     switch (status) {
@@ -32,18 +35,15 @@ const CurrentAppointments = () => {
         return styles.appointmentStatusPending;
     }
   };
-  const acceptedAppointments = appointments.filter(
-    (appointment) => appointment.status === "accepted"
-  );
 
   const renderAppointments = () => {
-    return acceptedAppointments.map((appointment, index) => (
+    return appointments.map((appointment, index) => (
       <View key={index}>
         <View style={styles.barberContainer}>
           <View style={styles.barberSection}>
             <View style={styles.TimeAndStatus}>
               <Text style={styles.appointmentdateandtime}>
-                {appointment.date} - {appointment.time}
+                {appointment.date} | {appointment.time}
               </Text>
               <Text style={getStatusStyle(appointment.status)}>
                 {appointment.status}
@@ -59,12 +59,9 @@ const CurrentAppointments = () => {
                 <Text style={styles.barberText}>
                   {appointment.barber.id} Amman, jawa
                 </Text>
-                <Text style={styles.barberText}>Services:</Text>
-                {appointment.services.map((service) => (
-                  <Text key={service.id} style={styles.barberText}>
-                    {service.name}
-                  </Text>
-                ))}
+                <Text style={styles.totalprice}>
+                  Total Time: {appointment.totaltime} Min
+                </Text>
               </View>
               <MaterialIcons name="favorite-outline" size={24} color="black" />
             </View>
@@ -78,11 +75,27 @@ const CurrentAppointments = () => {
   const fetchAppointments = async () => {
     try {
       const response = await axios.get(
-        `https://barberapp.onrender.com/api/user/getAppointmentsForUser/${userId}`
+        `https://barberapp.onrender.com/api/user/getallappoinemnts`
       );
 
       if (response.status === 200) {
-        setAppointments(response.data);
+        // Assuming that the response data is an array of users
+        const users = response.data;
+
+        // Filter appointments with status "accepted" for each user
+        const acceptedAppointments = users
+          .map((user) => user.appointments)
+          .flat() // Flatten the nested arrays
+          .filter((appointment) => appointment.status === "accepted");
+
+        // Calculate the sum of total time for all accepted appointments
+        const totalTimeSum = acceptedAppointments.reduce(
+          (sum, appointment) => sum + appointment.totaltime,
+          0
+        );
+
+        setAppointments(acceptedAppointments);
+        setTotalTimeSum(totalTimeSum);
       }
     } catch (error) {
       console.error("Error fetching appointments:", error);
@@ -97,6 +110,8 @@ const CurrentAppointments = () => {
     navigation.navigate("Home", {
       userId: userId,
       userEmail: userEmail,
+      totalprice: totalprice,
+      totaltime: totaltime,
     });
   };
 
@@ -104,6 +119,8 @@ const CurrentAppointments = () => {
     navigation.navigate("MyAppointments", {
       userId: userId,
       userEmail: userEmail,
+      totalprice: totalprice,
+      totaltime: totaltime,
     });
   };
 
@@ -111,6 +128,8 @@ const CurrentAppointments = () => {
     navigation.navigate("CurrentAppointments", {
       userId: userId,
       userEmail: userEmail,
+      totalprice: totalprice,
+      totaltime: totaltime,
     });
   };
 
@@ -119,7 +138,7 @@ const CurrentAppointments = () => {
       <View style={styles.headerContainer}>
         <Image source={logo} />
         <Text style={styles.headerText}>
-          Appointments ({acceptedAppointments.length})
+          Live ({appointments.length}) - {totalTimeSum} Min Left
         </Text>
         <View style={styles.iconsContainer}>
           <MaterialIcons name="favorite-outline" size={24} color="black" />
@@ -127,6 +146,11 @@ const CurrentAppointments = () => {
         </View>
       </View>
       <ScrollView style={styles.scrollView}>{renderAppointments()}</ScrollView>
+      <View style={styles.totalTimeContainer}>
+        <Text style={styles.totalTimeText}>
+          Total Time for Accepted Appointments: {totalTimeSum} min
+        </Text>
+      </View>
       <View style={styles.content}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -182,6 +206,15 @@ const styles = StyleSheet.create({
     width: 120,
     borderRadius: 10,
     marginHorizontal: 3,
+  },
+  totalprice: {
+    fontSize: 13,
+    fontWeight: "bold",
+    borderWidth: 1,
+    borderColor: "orange",
+    borderRadius: 5,
+    padding: 5,
+    textAlign: "center",
   },
   barberContainer: {
     flexDirection: "column",
@@ -274,6 +307,15 @@ const styles = StyleSheet.create({
   appointmentdateandtime: {
     fontWeight: "500",
     fontSize: 16,
+  },
+  totalTimeContainer: {
+    paddingHorizontal: 16,
+    paddingBottom: 10,
+  },
+  totalTimeText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "black",
   },
 });
 

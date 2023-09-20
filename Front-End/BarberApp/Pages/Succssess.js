@@ -8,6 +8,8 @@ const Succssess = () => {
   const userId = route.params?.userId;
   const appointments = route.params?.appointments;
   const userEmail = route.params?.userEmail;
+  const totalprice = route.params?.totalprice;
+  const totaltime = route.params?.totaltime;
 
   return (
     <View style={styles.container}>
@@ -29,6 +31,8 @@ const Succssess = () => {
               userId: userId,
               appointments: appointments,
               userEmail: userEmail,
+              totalprice: totalprice,
+              totaltime: totaltime,
             });
           }}
         >

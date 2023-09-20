@@ -40,6 +40,8 @@ const Home = ({ navigation }) => {
   const authToken = route.params?.authToken;
   const userId = route.params?.userId;
   const userEmail = route.params?.userEmail;
+  const totalprice = route.params?.totalprice;
+  const totaltime = route.params?.totaltime;
 
   // Define a state variable to store the user's appointments
   const [userAppointments, setUserAppointments] = useState([]);
@@ -47,24 +49,34 @@ const Home = ({ navigation }) => {
     navigation.navigate("Booking_Appointment", {
       userId: userId,
       userEmail: userEmail,
+      totalprice: totalprice,
+      totaltime: totaltime,
     });
   };
+
+  //  buttons to navigate between pages and pass the data
   const handleFormSubmitHome = () => {
     navigation.navigate("Home", {
       userId: userId,
       userEmail: userEmail,
+      totalprice: totalprice,
+      totaltime: totaltime,
     });
   };
   const handleFormSubmitMyAppointments = () => {
     navigation.navigate("MyAppointments", {
       userId: userId,
       userEmail: userEmail,
+      totalprice: totalprice,
+      totaltime: totaltime,
     });
   };
   const handleFormSubmitCurrentAppointments = () => {
     navigation.navigate("CurrentAppointments", {
       userId: userId,
       userEmail: userEmail,
+      totalprice: totalprice,
+      totaltime: totaltime,
     });
   };
 
@@ -108,9 +120,9 @@ const Home = ({ navigation }) => {
           Good morning, {UserEmail}✌
           {/* {authToken && <Text>Token: {authToken}</Text>} */}
           {/* {userId && <Text>ID: {userId}</Text>} */}
-          {userAppointments && (
+          {/* {userAppointments && (
             <Text>Appointments Length: {userAppointments.length}</Text>
-          )}
+          )} */}
         </Text>
       </View>
 
@@ -178,7 +190,10 @@ const Home = ({ navigation }) => {
             style={styles.btnBar}
             onPress={handleFormSubmitMyAppointments}
           >
-            <Text>MyAppointments</Text>
+            <Text>
+              MyAppoin
+              {userAppointments && <Text> {userAppointments.length}</Text>}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.btnBar}

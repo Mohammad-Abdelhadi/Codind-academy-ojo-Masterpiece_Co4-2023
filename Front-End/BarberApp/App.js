@@ -5,8 +5,8 @@ import React from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import Splash from "./Components/Onboarding/Splash";
-import onboadringone from "./Components/Onboarding/Onboarding_one";
-import onboadringtwo from "./Components/Onboarding/Onboarding_two";
+import onboardingone from "./Components/Onboarding/Onboarding_one";
+import onboardingtwo from "./Components/Onboarding/Onboarding_two";
 import onboardingthree from "./Components/Onboarding/Onboarding_three";
 import signup from "./Components/Signup/Signup";
 import login from "./Components/Login/Login";
@@ -24,7 +24,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login" headerMode="none">
+      <Stack.Navigator initialRouteName="Splash" headerMode="none">
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen
           name="Home"
@@ -53,8 +53,8 @@ const App = () => {
         />
         <Stack.Screen name="AppointmentTime" component={AppointmentTime} />
         <Stack.Screen name="Succssess" component={Succssess} />
-        <Stack.Screen name="onboadringone" component={onboadringone} />
-        <Stack.Screen name="onboadringtwo" component={onboadringtwo} />
+        <Stack.Screen name="onboardingone" component={onboardingone} />
+        <Stack.Screen name="onboardingtwo" component={onboardingtwo} />
         <Stack.Screen name="MyAppointments" component={MyAppointments} />
         <Stack.Screen
           name="CurrentAppointments"

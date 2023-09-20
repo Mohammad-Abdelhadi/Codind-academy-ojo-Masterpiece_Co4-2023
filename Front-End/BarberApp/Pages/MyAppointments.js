@@ -21,6 +21,9 @@ const MyAppointments = () => {
   const route = useRoute();
   const userId = route.params?.userId;
   const userEmail = route.params?.userEmail;
+  const totalprice = route.params?.totalprice;
+  const totaltime = route.params?.totaltime;
+
   const navigation = useNavigation();
   const [appointments, setAppointments] = useState([]);
 
@@ -44,7 +47,7 @@ const MyAppointments = () => {
           <View style={styles.barberSection}>
             <View style={styles.TimeAndStatus}>
               <Text style={styles.appointmentdateandtime}>
-                {appointment.date} - {appointment.time}
+                {appointment.date} | {appointment.time}
               </Text>
               <Text style={getStatusStyle(appointment.status)}>
                 {appointment.status}
@@ -61,11 +64,17 @@ const MyAppointments = () => {
                   {appointment.barber.id} Amman, jawa
                 </Text>
                 <Text style={styles.barberText}>Services:</Text>
-                {appointment.services.map((service) => (
-                  <Text key={service.id} style={styles.barberText}>
-                    {service.name}
-                  </Text>
-                ))}
+                <Text style={styles.Services}>
+                  {appointment.services.map((service, index) =>
+                    index === appointment.services.length - 1
+                      ? `${service.name}`
+                      : `${service.name}, `
+                  )}
+                </Text>
+
+                <Text style={styles.totalprice}>
+                  Total Price: {appointment.totalprice} JOD
+                </Text>
               </View>
               <MaterialIcons name="favorite-outline" size={24} color="black" />
             </View>
@@ -98,6 +107,8 @@ const MyAppointments = () => {
     navigation.navigate("Home", {
       userId: userId,
       userEmail: userEmail,
+      totalprice: totalprice,
+      totaltime: totaltime,
     });
   };
 
@@ -105,6 +116,8 @@ const MyAppointments = () => {
     navigation.navigate("MyAppointments", {
       userId: userId,
       userEmail: userEmail,
+      totalprice: totalprice,
+      totaltime: totaltime,
     });
   };
 
@@ -112,6 +125,8 @@ const MyAppointments = () => {
     navigation.navigate("CurrentAppointments", {
       userId: userId,
       userEmail: userEmail,
+      totalprice: totalprice,
+      totaltime: totaltime,
     });
   };
 
@@ -119,7 +134,9 @@ const MyAppointments = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
         <Image source={logo} />
-        <Text style={styles.headerText}>Appointments ({appointments.length})</Text>
+        <Text style={styles.headerText}>
+          Appointments ({appointments.length})
+        </Text>
         <View style={styles.iconsContainer}>
           <MaterialIcons name="favorite-outline" size={24} color="black" />
           <Ionicons name="notifications-outline" size={24} color="black" />
@@ -181,6 +198,19 @@ const styles = StyleSheet.create({
     width: 120,
     borderRadius: 10,
     marginHorizontal: 3,
+  },
+  totalprice: {
+    fontSize: 13,
+    fontWeight: "bold",
+    borderWidth: 1,
+    borderColor: "orange",
+    borderRadius: 5,
+    padding: 5,
+    textAlign: "center",
+  },
+  Services: {
+    color: "orange",
+    fontWeight: "600",
   },
   barberContainer: {
     flexDirection: "column",

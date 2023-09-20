@@ -18,8 +18,8 @@ const AppointmentTime = () => {
   const userId = route.params?.userId;
   const selectedServices = route.params?.selectedServices;
   const userEmail = route.params?.userEmail;
-  const totalPrice = route.params?.totalPrice;
-  const totalTime = route.params?.totalTime;
+  const totalprice = route.params?.totalprice;
+  const totaltime = route.params?.totaltime;
 
   const navigation = useNavigation();
   const [selected, setSelected] = useState("");
@@ -50,6 +50,8 @@ const AppointmentTime = () => {
           services: selectedServices,
           time: selectedTime,
           date: selectedDateTime,
+          totaltime: totaltime,
+          totalprice: totalprice,
           status: "pending",
         },
       ],
@@ -70,8 +72,9 @@ const AppointmentTime = () => {
 
       console.log("Response Body:", responseBody);
       console.log("Selected Date:", selectedDateTime);
-      console.log("total price :", totalPrice);
-      console.log("total totalTime :", totalTime);
+      console.log("Selected Date:", selectedTime);
+      console.log("total price :", totalprice);
+      console.log("total totalTime :", totaltime);
 
       if (response.status === 201) {
         const firstAppointment = responseBody.appointments[0];
@@ -81,6 +84,8 @@ const AppointmentTime = () => {
           appointments: firstAppointment,
           userId: userId,
           userEmail: userEmail,
+          totaltime: totaltime,
+          totalprice: totalprice,
         });
       } else {
         console.error("Error:", response.status, response.statusText);
@@ -123,7 +128,7 @@ const AppointmentTime = () => {
       <Calendar
         onDayPress={(day) => {
           const selectedDate = day.dateString;
-          setSelectedDateTime(`${selectedDate} ${selectedTime}`);
+          setSelectedDateTime(`${selectedDate} `);
           setSelected(selectedDate);
         }}
         markedDates={{
