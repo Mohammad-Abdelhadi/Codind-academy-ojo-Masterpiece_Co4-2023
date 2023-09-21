@@ -36,40 +36,104 @@ const CurrentAppointments = () => {
     }
   };
 
+  // const renderAppointments = () => {
+  //   return appointments.map((appointment, index) => (
+  //     <View key={index}>
+  //       <View style={styles.barberContainer}>
+  //         <View style={styles.barberSection}>
+  //           <View style={styles.TimeAndStatus}>
+  //             <Text style={styles.appointmentdateandtime}>
+  //               {appointment.date} | {appointment.time}
+  //             </Text>
+  //             <Text style={getStatusStyle(appointment.status)}>
+  //               {appointment.status}
+  //             </Text>
+  //           </View>
+  //           <View style={styles.horizontalLine}></View>
+  //           <View style={styles.barberInfo}>
+  //             <Image source={onboarding} style={styles.barberImage} />
+  //             <View style={styles.barberTextContainer}>
+  //               <Text style={[styles.barberText, { fontWeight: "bold" }]}>
+  //                 {appointment.barber.name}
+  //               </Text>
+  //               <Text style={styles.barberText}>
+  //                 {appointment.barber.id} Amman, jawa
+  //               </Text>
+  //               <Text style={styles.totalprice}>
+  //                 Total Time: {appointment.totaltime} Min
+  //               </Text>
+  //             </View>
+  //             <MaterialIcons name="favorite-outline" size={24} color="black" />
+  //           </View>
+  //         </View>
+  //         <View style={styles.gap}></View>
+  //       </View>
+  //     </View>
+  //   ));
+  // };
   const renderAppointments = () => {
-    return appointments.map((appointment, index) => (
-      <View key={index}>
-        <View style={styles.barberContainer}>
-          <View style={styles.barberSection}>
-            <View style={styles.TimeAndStatus}>
-              <Text style={styles.appointmentdateandtime}>
-                {appointment.date} | {appointment.time}
-              </Text>
-              <Text style={getStatusStyle(appointment.status)}>
-                {appointment.status}
-              </Text>
-            </View>
-            <View style={styles.horizontalLine}></View>
-            <View style={styles.barberInfo}>
-              <Image source={onboarding} style={styles.barberImage} />
-              <View style={styles.barberTextContainer}>
-                <Text style={[styles.barberText, { fontWeight: "bold" }]}>
-                  {appointment.barber.name}
-                </Text>
-                <Text style={styles.barberText}>
-                  {appointment.barber.id} Amman, jawa
-                </Text>
-                <Text style={styles.totalprice}>
-                  Total Time: {appointment.totaltime} Min
-                </Text>
+    // Create a dictionary to group appointments by barber name and ID
+    const barberAppointments = {};
+
+    // Group appointments by barber
+    appointments.forEach((appointment) => {
+      const { name, id } = appointment.barber;
+      const key = `${name}_${id}`;
+      if (!barberAppointments[key]) {
+        barberAppointments[key] = [];
+      }
+      barberAppointments[key].push(appointment);
+    });
+
+    return Object.keys(barberAppointments).map((key) => {
+      const [barberName, barberId] = key.split("_");
+      const barberAppointmentsList = barberAppointments[key];
+
+      return (
+        <View key={key}>
+          <Text style={styles.barberHeader}>
+            {barberName} - ({barberAppointmentsList.length}){" "}
+          </Text>
+          {barberAppointmentsList.map((appointment, index) => (
+            <View key={index}>
+              <View style={styles.barberContainer}>
+                <View style={styles.barberSection}>
+                  <View style={styles.TimeAndStatus}>
+                    <Text style={styles.appointmentdateandtime}>
+                      {appointment.date} | {appointment.time}
+                    </Text>
+                    <Text style={getStatusStyle(appointment.status)}>
+                      {appointment.status}
+                    </Text>
+                  </View>
+                  <View style={styles.horizontalLine}></View>
+                  <View style={styles.barberInfo}>
+                    <Image source={onboarding} style={styles.barberImage} />
+                    <View style={styles.barberTextContainer}>
+                      <Text style={[styles.barberText, { fontWeight: "bold" }]}>
+                        {appointment.barber.name}
+                      </Text>
+                      <Text style={styles.barberText}>
+                        {appointment.barber.id} Amman, jawa
+                      </Text>
+                      <Text style={styles.totalprice}>
+                        Total Time: {appointment.totaltime} Min
+                      </Text>
+                    </View>
+                    <MaterialIcons
+                      name="favorite-outline"
+                      size={24}
+                      color="black"
+                    />
+                  </View>
+                </View>
+                <View style={styles.gap}></View>
               </View>
-              <MaterialIcons name="favorite-outline" size={24} color="black" />
             </View>
-          </View>
-          <View style={styles.gap}></View>
+          ))}
         </View>
-      </View>
-    ));
+      );
+    });
   };
 
   const fetchAppointments = async () => {
@@ -247,6 +311,18 @@ const styles = StyleSheet.create({
   barberText: {
     fontSize: 13,
   },
+  barberHeader: {
+    fontSize: 25,
+    paddingHorizontal: 16,
+    backgroundColor: "orange",
+    color: "white", // Text color
+    paddingVertical: 8, // Vertical padding
+    fontWeight: "bold", // Bold text
+    textTransform: "uppercase", // Uppercase text
+    letterSpacing: 2, // Letter spacing
+    borderRadius: 5, // Rounded corners
+  },
+
   headerContainer: {
     flexDirection: "row",
     paddingHorizontal: 16,

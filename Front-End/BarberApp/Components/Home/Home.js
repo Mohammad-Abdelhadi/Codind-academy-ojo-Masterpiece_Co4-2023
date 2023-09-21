@@ -170,7 +170,7 @@ const Home = ({ navigation }) => {
         <Text style={styles.barberTitle}>Our Barbers ✌</Text>
         {/* <Barbers /> */}
         <TouchableOpacity style={styles.continueBtn} onPress={handleFormSubmit}>
-          <Text>Home</Text>
+          <Text>Book Now !</Text>
         </TouchableOpacity>
         <View
           style={{
@@ -191,8 +191,8 @@ const Home = ({ navigation }) => {
             onPress={handleFormSubmitMyAppointments}
           >
             <Text>
-              MyAppoin
-              {userAppointments && <Text> {userAppointments.length}</Text>}
+              Apointment ({userAppointments && <Text>{userAppointments.length}</Text>})
+              
             </Text>
           </TouchableOpacity>
           <TouchableOpacity

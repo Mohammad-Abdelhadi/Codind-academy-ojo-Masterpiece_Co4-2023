@@ -100,17 +100,26 @@ const AppointmentTime = () => {
   };
 
   const data = [
-    { id: "1", time: "9:30 AM" },
-    { id: "2", time: "10:45 AM" },
-    { id: "3", time: "1:15 PM" },
-    { id: "4", time: "3:00 PM" },
-    { id: "5", time: "4:30 PM" },
+    { id: "1", time: "9:00 AM" },
+    { id: "2", time: "10:00 AM" },
+    { id: "3", time: "11:00 PM" },
+    { id: "4", time: "12:00 PM" },
+    { id: "5", time: "1:00 PM" },
+    { id: "6", time: "2:00 PM" },
+    { id: "7", time: "3:00 PM" },
+    { id: "8", time: "4:00 PM" },
+    { id: "9", time: "5:00 PM" },
+    { id: "10", time: "6:00 PM" },
+    { id: "11", time: "7:00 PM" },
+    { id: "12", time: "8:00 PM" },
+    { id: "13", time: "9:00 PM" },
+    { id: "14", time: "10:00 PM" },
   ];
 
-  // const paymentMethods = [
-  //   { id: "cash", name: "Cash" },
-  //   { id: "mastercard", name: "Mastercard" },
-  // ];
+  const paymentMethods = [
+    { id: "cash", name: "Cash" },
+    { id: "mastercard", name: "Mastercard" },
+  ];
 
   return (
     <View style={styles.container}>
@@ -172,9 +181,9 @@ const AppointmentTime = () => {
         />
       </View>
 
-      {/* <View>
+     <View>
         <Text style={styles.allHeaders}>Payment Method</Text>
-      </View> */}
+      </View>
       {/* <View style={{ height: 100 }}>
         <FlatList
           data={paymentMethods}
@@ -203,10 +212,12 @@ const AppointmentTime = () => {
             </TouchableOpacity>
           )}
         />
-      </View> */}
+      </View>  */}
+
+
       <TouchableOpacity style={styles.continueBtn} onPress={handleFormSubmit}>
         <Text>Next</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> 
     </View>
   );
 };

@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -5,11 +6,8 @@ import {
   TouchableOpacity,
   View,
   FlatList,
-  setSelectedItem,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
-import React, { useState, reduce } from "react";
 import curvedBack from "../assets/curvedBack.jpg";
 import barbar from "../assets/barber.jpg";
 import axios from "axios";
@@ -24,12 +22,21 @@ const Booking_Appointment = () => {
 
   const [selectedItem, setSelectedItem] = useState(null); // Track the selected item
   const [selectedService, setSelectedServices] = useState([]); // Track selected services
-  const data = [
-    { id: 1, name: "Mohammad", rating: 5, imageSource: barbar },
-    { id: 2, name: "Messi ", rating: 4.5, imageSource: barbar },
-    { id: 3, name: "Alawi", rating: 4.8, imageSource: barbar },
-    { id: 4, name: "bassam", rating: 4.9, imageSource: barbar },
-  ];
+  const [barbers, setBarbers] = useState([]); // Track the list of barbers
+
+  // Fetch the list of barbers when the component mounts
+  useEffect(() => {
+    axios
+      .get(
+        `https://barberapp.onrender.com/api/user/getbarbers/650b9d8bdabaadebc52dbcb2`
+      )
+      .then((response) => {
+        setBarbers(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching barbers:", error);
+      });
+  }, [userId]);
 
   const services = [
     {
@@ -77,6 +84,8 @@ const Booking_Appointment = () => {
       console.error("Please select at least one service.");
       return;
     }
+
+    // Calculate total price and total time
     const { totalprice, totaltime } = calculateTotalPriceAndTime();
 
     // Navigate to the AppointmentTime page and pass the data as params
@@ -85,7 +94,7 @@ const Booking_Appointment = () => {
       userId: userId,
       totalprice: totalprice,
       totaltime: totaltime,
-      selectedBarber: data.find((item) => item.id === selectedItem), // Get the selected barber object
+      selectedBarber: barbers.find((item) => item.id === selectedItem), // Get the selected barber object
       selectedServices: selectedService.map((serviceId) => ({
         ...services.find((service) => service.id === serviceId),
       })), // Get the selected service objects
@@ -127,7 +136,6 @@ const Booking_Appointment = () => {
   return (
     <View style={styles.container}>
       <View style={styles.bookingHeader}>
-        {/* ... Your header content ... */}
         <TouchableOpacity onPress={backHome}>
           <Image source={curvedBack} />
         </TouchableOpacity>
@@ -137,17 +145,17 @@ const Booking_Appointment = () => {
       </View>
       <View style={styles.listSpecialist}>
         <FlatList
-          data={data}
+          data={barbers}
           horizontal
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => setSelectedItem(item.id)} // Set the selected item on press
+              onPress={() => setSelectedItem(item.id)}
               style={[
                 styles.Specialist,
-                selectedItem === item.id && styles.selectedSpecialist, // Apply a border style if selected
+                selectedItem === item.id && styles.selectedSpecialist,
               ]}
             >
-              <Image source={item.imageSource} style={styles.SpecialistImage} />
+              <Image source={barbar} style={styles.SpecialistImage} />
               <Text>{item.name}</Text>
               <Text>⭐{item.rating} Stars</Text>
             </TouchableOpacity>
@@ -160,7 +168,7 @@ const Booking_Appointment = () => {
       </View>
       <FlatList
         data={services}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()} // Ensure the key is a string
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => toggleServiceSelection(item.id)}
@@ -255,7 +263,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     height: 80,
     borderRadius: 16,
-
     padding: 25,
     marginBottom: 10,
   },
