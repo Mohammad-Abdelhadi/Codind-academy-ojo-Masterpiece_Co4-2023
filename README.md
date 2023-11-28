@@ -135,8 +135,7 @@
 - **Endpoint:** `POST /api/user/postAppointment/:id`
 - **Authorization:** None
 - **Request:**
-    ```json
-   {
+    ```json {
   "appointments": [
     {
       "barber": {
