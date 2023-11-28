@@ -404,3 +404,74 @@ This documentation provides details on the endpoints for the barber app API.
           "error": "Error message here"
       }
       ```
+### Getbarbers
+
+- **Endpoint:** `GET /api/user/getbarbers/:id`
+- **Authorization:** None
+
+- **cURL Example:**
+    ```bash
+    curl --location 'http://localhost:5000/api/user/getbarbers/650b9d8bdabaadebc52dbcb2' \
+    --data-raw '{
+   [
+    {
+        "id": 1,
+        "name": "Mohammad ",
+        "availableTime": [
+            "09:00",
+            "10:00",
+            "11:00",
+            "12:00",
+            "13:00",
+            "14:00",
+            "15:00",
+            "16:00",
+            "17:00",
+            "18:00",
+            "19:00",
+            "20:00",
+            "21:00",
+            "22:00"
+        ]
+    },
+   
+    }
+]
+    }'
+    ```
+- **Response:**
+    - Success:
+      ```json
+      {
+          [
+    {
+        "id": 1,
+        "name": "Mohammad ",
+        "availableTime": [
+            "09:00",
+            "10:00",
+            "11:00",
+            "12:00",
+            "13:00",
+            "14:00",
+            "15:00",
+            "16:00",
+            "17:00",
+            "18:00",
+            "19:00",
+            "20:00",
+            "21:00",
+            "22:00"
+        ]
+    },
+   
+    }
+]
+      }
+      ```
+    - Failure:
+      ```json
+      {
+          "error": "Error message here"
+      }
+      ```
