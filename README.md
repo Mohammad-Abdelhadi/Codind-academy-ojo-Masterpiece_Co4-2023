@@ -101,7 +101,7 @@
 - **Response:**
     - Success:
       ```json
-      {
+     
           {
     "message": "Barber added successfully",
     "barber": {
@@ -124,7 +124,6 @@
         ]
     }
 }
-      }
       ```
     - Failure:
       ```json
