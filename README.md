@@ -9,27 +9,37 @@ This documentation provides details on the endpoints for the barber app API.
 ### Splash Screen
 <img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/3984fd45-b594-4a8b-8ebc-6bf81adc8d1e" alt="Splash Screen" style="width: 218px; height: 620px;">
 
-
 ### Introduction One
-![Introduction One](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/422755f6-b887-4c85-a567-ce65ff71d586)
+<img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/422755f6-b887-4c85-a567-ce65ff71d586" alt="Introduction One" style="width: 218px; height: 620px;">
+
+
 ### Introduction two
-![Introduction two](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/943eb7a0-c3a7-48e2-b186-b144600d0e27)
+<img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/943eb7a0-c3a7-48e2-b186-b144600d0e27" alt="Introduction two" style="width: 218px; height: 620px;">
+
 ### sign up
-![sign up](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/a2e0e65e-2ed6-41d7-be0b-eb94932a3390)
+<img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/a2e0e65e-2ed6-41d7-be0b-eb94932a3390" alt="sign up" style="width: 218px; height: 620px;">
+
 ### log in
-![log in](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/2930b7ae-91bf-4e21-abd3-3d6b79a0a59d)
+<img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/2930b7ae-91bf-4e21-abd3-3d6b79a0a59d" alt="log in" style="width: 218px; height: 620px;">
+
 ### Home
-![Home](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/d870a1e4-5cef-48ef-8bb3-6c4434c0b073)
-### Booking Appointment Services   Barber
-![Booking Appointment Services   Barber](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/42fd84ca-41f8-4554-a761-5e8c95e5b0a0)
+<img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/d870a1e4-5cef-48ef-8bb3-6c4434c0b073" alt="Home" style="width: 218px; height: 620px;">
+
+### Booking Appointment Services Barber
+<img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/42fd84ca-41f8-4554-a761-5e8c95e5b0a0" alt="Booking Appointment Services Barber" style="width: 218px; height: 620px;">
+
 ### appointment time
-![appointment time](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/8b89b424-3d38-4a93-a79f-505ed4dc9ded)
-### Successfuly Booking
-![Successfuly Booking](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/92001900-b35a-40c9-bca8-7dc3a9e933f1)
-### My appointments
-![My appointments](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/2478dd47-f75a-4b88-bb85-b4ecca3a0f0a)
+<img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/8b89b424-3d38-4a93-a79f-505ed4dc9ded" alt="appointment time" style="width: 218px; height: 620px;">
+
+### Successfully Booking
+<img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/92001900-b35a-40c9-bca8-7dc3a9e933f1" alt="Successfully Booking" style="width: 218px; height: 620px;">
+
+### My Appointments
+<img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/2478dd47-f75a-4b88-bb85-b4ecca3a0f0a" alt="My Appointments" style="width: 218px; height: 620px;">
+
 ### Live Appointments
-![Live Appointments](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/e9f25012-f720-4be6-97d7-35b9f2eb2c8d)
+<img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/e9f25012-f720-4be6-97d7-35b9f2eb2c8d" alt="Live Appointments" style="width: 218px; height: 620px;">
+
 
 ## Screenshots Admin Dashboard
 ![DashBoard Login](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/099771d6-426e-4529-a6d3-e8b524008249)
