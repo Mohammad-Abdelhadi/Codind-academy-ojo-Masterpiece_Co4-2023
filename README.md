@@ -101,8 +101,7 @@
 - **Response:**
     - Success:
       ```json
-     
-          {
+  {
     "message": "Barber added successfully",
     "barber": {
         "name": "Mohammad Abdelhadi",
@@ -122,7 +121,7 @@
             "21:00",
             "22:00"
         ]
-    }
+    
 }
       ```
     - Failure:
