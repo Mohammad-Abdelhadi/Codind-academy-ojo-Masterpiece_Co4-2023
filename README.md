@@ -4,7 +4,37 @@
 
 This documentation provides details on the endpoints for the barber app API.
 
-## Screenshots
+## Screenshots Mobile Application
+
+### Splash Screen
+![Splash Screen](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/3984fd45-b594-4a8b-8ebc-6bf81adc8d1e)
+### Introduction One
+![Introduction One](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/422755f6-b887-4c85-a567-ce65ff71d586)
+### Introduction two
+![Introduction two](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/943eb7a0-c3a7-48e2-b186-b144600d0e27)
+### sign up
+![sign up](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/a2e0e65e-2ed6-41d7-be0b-eb94932a3390)
+### log in
+![log in](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/2930b7ae-91bf-4e21-abd3-3d6b79a0a59d)
+### Home
+![Home](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/d870a1e4-5cef-48ef-8bb3-6c4434c0b073)
+### Booking Appointment Services   Barber
+![Booking Appointment Services   Barber](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/42fd84ca-41f8-4554-a761-5e8c95e5b0a0)
+### appointment time
+![appointment time](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/8b89b424-3d38-4a93-a79f-505ed4dc9ded)
+### Successfuly Booking
+![Successfuly Booking](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/92001900-b35a-40c9-bca8-7dc3a9e933f1)
+### My appointments
+![My appointments](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/2478dd47-f75a-4b88-bb85-b4ecca3a0f0a)
+### Live Appointments
+![Live Appointments](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/e9f25012-f720-4be6-97d7-35b9f2eb2c8d)
+
+## Screenshots Admin Dashboard
+![DashBoard Login](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/099771d6-426e-4529-a6d3-e8b524008249)
+![Dashboard All Users](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/568ffde6-b5a6-4375-bfca-160c2e4b9651)
+![DashBoard - Pending Appointments](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/72246071-b77f-4634-8d86-f5b6cf4491ce)
+![Dashboard - Live Appointments](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/83b32843-938f-4d3c-88c9-1277f347eb37)
+![DashBoard - All Appointments](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/6e1fa5e8-93cd-4dc0-9fbb-67a50a107601)
 
 ### Sign up
 
