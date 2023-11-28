@@ -215,57 +215,72 @@ This documentation provides details on the endpoints for the barber app API.
 - **Authorization:** None
 - **Request:**
     ```json
-    {
-     none
-    }
+    [
+        {
+            "_id": "650eafbb0a65942e19ba24e6",
+            "email": "admin1@admin.com",
+            "password": "$2b$10$3q5vgMM5Mp0Xx8HJPuUwbOUp/3d7pNIvf07X7jGm6Q7gwotH0m8cm",
+            "role": "admin",
+            "barbers": [],
+            "appointments": [],
+            "__v": 0
+        },
+        {
+            "_id": "650eb0400a65942e19ba2510",
+            "email": "test@test.com",
+            "password": "$2b$10$4B7I5pYhBmRWlZEJNleiZuhYte2wXSBvz8SuboHbyU/NAtAEHIZfK",
+            "role": "user",
+            "appointments": [],
+            "__v": 0
+        }
+    ]
     ```
 - **cURL Example:**
     ```bash
     curl --location 'http://localhost:5000/api/user/' \
-    --data-raw
-    '{
-    // All The Data Of users
-      {
-        "_id": "650eafbb0a65942e19ba24e6",
-        "email": "admin1@admin.com",
-        "password": "$2b$10$3q5vgMM5Mp0Xx8HJPuUwbOUp/3d7pNIvf07X7jGm6Q7gwotH0m8cm",
-        "role": "admin",
-        "barbers": [],
-        "appointments": [],
-        "__v": 0
-    },
-    {
-        "_id": "650eb0400a65942e19ba2510",
-        "email": "test@test.com",
-        "password": "$2b$10$4B7I5pYhBmRWlZEJNleiZuhYte2wXSBvz8SuboHbyU/NAtAEHIZfK",
-        "role": "user",
-        "appointments": [],
-        "__v": 0
-    },
-    }'
+    --data-raw '[
+        {
+            "_id": "650eafbb0a65942e19ba24e6",
+            "email": "admin1@admin.com",
+            "password": "$2b$10$3q5vgMM5Mp0Xx8HJPuUwbOUp/3d7pNIvf07X7jGm6Q7gwotH0m8cm",
+            "role": "admin",
+            "barbers": [],
+            "appointments": [],
+            "__v": 0
+        },
+        {
+            "_id": "650eb0400a65942e19ba2510",
+            "email": "test@test.com",
+            "password": "$2b$10$4B7I5pYhBmRWlZEJNleiZuhYte2wXSBvz8SuboHbyU/NAtAEHIZfK",
+            "role": "user",
+            "appointments": [],
+            "__v": 0
+        }
+    ]'
     ```
 - **Response:**
     - Success:
       ```json
       {
-           // All The Data Of users
-      {
-        "_id": "650eafbb0a65942e19ba24e6",
-        "email": "admin1@admin.com",
-        "password": "$2b$10$3q5vgMM5Mp0Xx8HJPuUwbOUp/3d7pNIvf07X7jGm6Q7gwotH0m8cm",
-        "role": "admin",
-        "barbers": [],
-        "appointments": [],
-        "__v": 0
-            },
-    {
-        "_id": "650eb0400a65942e19ba2510",
-        "email": "test@test.com",
-        "password": "$2b$10$4B7I5pYhBmRWlZEJNleiZuhYte2wXSBvz8SuboHbyU/NAtAEHIZfK",
-        "role": "user",
-        "appointments": [],
-        "__v": 0
-            },
+          "users": [
+              {
+                  "_id": "650eafbb0a65942e19ba24e6",
+                  "email": "admin1@admin.com",
+                  "password": "$2b$10$3q5vgMM5Mp0Xx8HJPuUwbOUp/3d7pNIvf07X7jGm6Q7gwotH0m8cm",
+                  "role": "admin",
+                  "barbers": [],
+                  "appointments": [],
+                  "__v": 0
+              },
+              {
+                  "_id": "650eb0400a65942e19ba2510",
+                  "email": "test@test.com",
+                  "password": "$2b$10$4B7I5pYhBmRWlZEJNleiZuhYte2wXSBvz8SuboHbyU/NAtAEHIZfK",
+                  "role": "user",
+                  "appointments": [],
+                  "__v": 0
+              }
+          ]
       }
       ```
     - Failure:
@@ -274,6 +289,7 @@ This documentation provides details on the endpoints for the barber app API.
           "error": "Error message here"
       }
       ```
+
 ### Get All Appointments
 
 - **Endpoint:** `GET /api/user/getallappoinemnts`
