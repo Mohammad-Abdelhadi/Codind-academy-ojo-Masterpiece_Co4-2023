@@ -332,7 +332,7 @@ This documentation provides details on the endpoints for the barber app API.
 
 - **Endpoint:** `GET /api/user/getAppointmentsForUser/:userId`
 - **Authorization:** None
-- **cURL Example:**curl --location 'http://localhost:5000/api/user/getAppointmentsForUser/655e6267782c5629e422ec2e' \
+- **cURL Example:** curl --location 'http://localhost:5000/api/user/getAppointmentsForUser/655e6267782c5629e422ec2e' \
 
 - **Response:**
     - Success:
