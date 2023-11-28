@@ -211,7 +211,7 @@ This documentation provides details on the endpoints for the barber app API.
 
 ### Get All Users
 
-- **Endpoint:** `POST /api/user/`
+- **Endpoint:** `GET /api/user/`
 - **Authorization:** None
 - **Request:**
     ```json
@@ -257,7 +257,7 @@ This documentation provides details on the endpoints for the barber app API.
         "barbers": [],
         "appointments": [],
         "__v": 0
-    },
+            },
     {
         "_id": "650eb0400a65942e19ba2510",
         "email": "test@test.com",
@@ -265,7 +265,7 @@ This documentation provides details on the endpoints for the barber app API.
         "role": "user",
         "appointments": [],
         "__v": 0
-    },
+            },
       }
       ```
     - Failure:
@@ -274,243 +274,33 @@ This documentation provides details on the endpoints for the barber app API.
           "error": "Error message here"
       }
       ```
-### Login
+### Get All Appointments
 
-- **Endpoint:** `POST /api/user/login`
+- **Endpoint:** `GET /api/user/getallappoinemnts`
 - **Authorization:** None
 - **Request:**
     ```json
     {
-        "email": "moh@mail.com",
-        "password": "aA12345678#"
+        ..
     }
     ```
 - **cURL Example:**
     ```bash
-    curl --location 'http://localhost:5000/api/user/login' \
+    curl --location 'http://localhost:5000/api/user/getallappoinemnts' \
     --data-raw
     '{
-    "email":"moh@mail.com",
-    "password":"aA12345678#"
+     [
+        "userId": "650b9d8bdabaadebc52dbcb2",
+        "appointments": [] , ...all of users
+    ]
     }'
     ```
 - **Response:**
     - Success:
       ```json
       {
-          "username": "mohamamd",
-          "email": "moh@mail.com",
-          "token": "<your_generated_token>"
-      }
-      ```
-    - Failure:
-      ```json
-      {
-          "error": "Error message here"
-      }
-      ```
-### Login
-
-- **Endpoint:** `POST /api/user/login`
-- **Authorization:** None
-- **Request:**
-    ```json
-    {
-        "email": "moh@mail.com",
-        "password": "aA12345678#"
-    }
-    ```
-- **cURL Example:**
-    ```bash
-    curl --location 'http://localhost:5000/api/user/login' \
-    --data-raw
-    '{
-    "email":"moh@mail.com",
-    "password":"aA12345678#"
-    }'
-    ```
-- **Response:**
-    - Success:
-      ```json
-      {
-          "username": "mohamamd",
-          "email": "moh@mail.com",
-          "token": "<your_generated_token>"
-      }
-      ```
-    - Failure:
-      ```json
-      {
-          "error": "Error message here"
-      }
-      ```
-### Login
-
-- **Endpoint:** `POST /api/user/login`
-- **Authorization:** None
-- **Request:**
-    ```json
-    {
-        "email": "moh@mail.com",
-        "password": "aA12345678#"
-    }
-    ```
-- **cURL Example:**
-    ```bash
-    curl --location 'http://localhost:5000/api/user/login' \
-    --data-raw
-    '{
-    "email":"moh@mail.com",
-    "password":"aA12345678#"
-    }'
-    ```
-- **Response:**
-    - Success:
-      ```json
-      {
-          "username": "mohamamd",
-          "email": "moh@mail.com",
-          "token": "<your_generated_token>"
-      }
-      ```
-    - Failure:
-      ```json
-      {
-          "error": "Error message here"
-      }
-      ```
-### Login
-
-- **Endpoint:** `POST /api/user/login`
-- **Authorization:** None
-- **Request:**
-    ```json
-    {
-        "email": "moh@mail.com",
-        "password": "aA12345678#"
-    }
-    ```
-- **cURL Example:**
-    ```bash
-    curl --location 'http://localhost:5000/api/user/login' \
-    --data-raw
-    '{
-    "email":"moh@mail.com",
-    "password":"aA12345678#"
-    }'
-    ```
-- **Response:**
-    - Success:
-      ```json
-      {
-          "username": "mohamamd",
-          "email": "moh@mail.com",
-          "token": "<your_generated_token>"
-      }
-      ```
-    - Failure:
-      ```json
-      {
-          "error": "Error message here"
-      }
-      ```
-### Login
-
-- **Endpoint:** `POST /api/user/login`
-- **Authorization:** None
-- **Request:**
-    ```json
-    {
-        "email": "moh@mail.com",
-        "password": "aA12345678#"
-    }
-    ```
-- **cURL Example:**
-    ```bash
-    curl --location 'http://localhost:5000/api/user/login' \
-    --data-raw
-    '{
-    "email":"moh@mail.com",
-    "password":"aA12345678#"
-    }'
-    ```
-- **Response:**
-    - Success:
-      ```json
-      {
-          "username": "mohamamd",
-          "email": "moh@mail.com",
-          "token": "<your_generated_token>"
-      }
-      ```
-    - Failure:
-      ```json
-      {
-          "error": "Error message here"
-      }
-      ```
-### Login
-
-- **Endpoint:** `POST /api/user/login`
-- **Authorization:** None
-- **Request:**
-    ```json
-    {
-        "email": "moh@mail.com",
-        "password": "aA12345678#"
-    }
-    ```
-- **cURL Example:**
-    ```bash
-    curl --location 'http://localhost:5000/api/user/login' \
-    --data-raw
-    '{
-    "email":"moh@mail.com",
-    "password":"aA12345678#"
-    }'
-    ```
-- **Response:**
-    - Success:
-      ```json
-      {
-          "username": "mohamamd",
-          "email": "moh@mail.com",
-          "token": "<your_generated_token>"
-      }
-      ```
-    - Failure:
-      ```json
-      {
-          "error": "Error message here"
-      }
-      ```
-### Login
-
-- **Endpoint:** `POST /api/user/login`
-- **Authorization:** None
-- **Request:**
-    ```json
-    {
-        "email": "moh@mail.com",
-        "password": "aA12345678#"
-    }
-    ```
-- **cURL Example:**
-    ```bash
-    curl --location 'http://localhost:5000/api/user/login' \
-    --data-raw
-    '{
-    "email":"moh@mail.com",
-    "password":"aA12345678#"
-    }'
-    ```
-- **Response:**
-    - Success:
-      ```json
-      {
-          "username": "mohamamd",
-          "email": "moh@mail.com",
-          "token": "<your_generated_token>"
+            "userId": "650b9d8bdabaadebc52dbcb2",
+        "appointments": [] , ...all of users
       }
       ```
     - Failure:
