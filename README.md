@@ -328,3 +328,83 @@ This documentation provides details on the endpoints for the barber app API.
 
 
 
+### Get Appointments For User
+
+- **Endpoint:** `GET /api/user/getAppointmentsForUser/:userId`
+- **Authorization:** None
+- **cURL Example:**
+    ```bash
+    curl --location 'http://localhost:5000/api/user/getAppointmentsForUser/655e6267782c5629e422ec2e' \
+    --data-raw '{
+   [
+    {
+        "barber": {
+            "id": 1,
+            "name": "alawi ",
+            "availableTime": []
+        },
+        "services": [
+            {
+                "id": 1,
+                "name": "Service 1",
+                "price": 20,
+                "time": 30,
+                "_id": "6564502b02f4a61066876e56"
+            },
+            {
+                "id": 2,
+                "name": "Service 2",
+                "price": 30,
+                "time": 45,
+                "_id": "6564502b02f4a61066876e57"
+            }
+        ],
+        "time": "14:30",
+        "date": "2023-09-17",
+        "status": "accepted",
+        "_id": "6564502b02f4a61066876e55"
+    },
+    ]
+    }'
+    ```
+- **Response:**
+    - Success:
+      ```json
+      {
+       [
+    {
+        "barber": {
+            "id": 1,
+            "name": "alawi ",
+            "availableTime": []
+        },
+        "services": [
+            {
+                "id": 1,
+                "name": "Service 1",
+                "price": 20,
+                "time": 30,
+                "_id": "6564502b02f4a61066876e56"
+            },
+            {
+                "id": 2,
+                "name": "Service 2",
+                "price": 30,
+                "time": 45,
+                "_id": "6564502b02f4a61066876e57"
+            }
+        ],
+        "time": "14:30",
+        "date": "2023-09-17",
+        "status": "accepted",
+        "_id": "6564502b02f4a61066876e55"
+    },
+  ]
+      }
+      ```
+    - Failure:
+      ```json
+      {
+          "error": "Error message here"
+      }
+      ```
