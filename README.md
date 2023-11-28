@@ -138,12 +138,7 @@ This documentation provides details on the endpoints for the barber app API.
                         "price": 20,
                         "time": 30
                     },
-                    {
-                        "id": 2,
-                        "name": "Service 2",
-                        "price": 30,
-                        "time": 45
-                    }
+                   
                 ],
                 "time": "16:30",
                 "date": "2023-09-17",
@@ -170,12 +165,7 @@ This documentation provides details on the endpoints for the barber app API.
                         "price": 20,
                         "time": 30
                     },
-                    {
-                        "id": 2,
-                        "name": "Service 2",
-                        "price": 30,
-                        "time": 45
-                    }
+                   
                 ],
                 "time": "16:30",
                 "date": "2023-09-17",
@@ -203,12 +193,7 @@ This documentation provides details on the endpoints for the barber app API.
                           "price": 20,
                           "time": 30
                       },
-                      {
-                          "id": 2,
-                          "name": "Service 2",
-                          "price": 30,
-                          "time": 45
-                      }
+                    
                   ],
                   "time": "16:30",
                   "date": "2023-09-17",
