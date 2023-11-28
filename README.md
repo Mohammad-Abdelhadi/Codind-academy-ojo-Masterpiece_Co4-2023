@@ -17,7 +17,9 @@ This documentation provides details on the endpoints for the barber app API.
 <img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/943eb7a0-c3a7-48e2-b186-b144600d0e27" alt="Introduction two" style="width: 218px; height: 620px;">
 
 ### sign up
-<img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/a2e0e65e-2ed6-41d7-be0b-eb94932a3390" alt="sign up" width="218" height="620" style="border: 2px solid #3498db; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+<div align="center" style="border: 2px solid #3498db; border-radius: 5px; overflow: hidden; width: 240px;">
+  <img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/a2e0e65e-2ed6-41d7-be0b-eb94932a3390" alt="sign up" style="width: 100%;">
+</div>
 
 ### log in
 <img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/2930b7ae-91bf-4e21-abd3-3d6b79a0a59d" alt="log in" style="width: 218px; height: 620px;">
