@@ -18,15 +18,8 @@ This documentation provides details on the endpoints for the barber app API.
         "password": "aA12345678#"
     }
     ```
-- **cURL Example:**
-    ```bash
-    curl --location 'http://localhost:5000/api/user/signup' \
-    --data-raw '{
-    "username":"mohamamd",
-    "email":"moh@mail.com",
-    "password":"aA12345678#"
-    }'
-    ```
+- **cURL Example:** curl --location 'http://localhost:5000/api/user/signup' \
+
 - **Response:**
     - Success:
       ```json
@@ -54,15 +47,8 @@ This documentation provides details on the endpoints for the barber app API.
         "password": "aA12345678#"
     }
     ```
-- **cURL Example:**
-    ```bash
-    curl --location 'http://localhost:5000/api/user/login' \
-    --data-raw
-    '{
-    "email":"moh@mail.com",
-    "password":"aA12345678#"
-    }'
-    ```
+- **cURL Example:** curl --location 'http://localhost:5000/api/user/login' \
+
 - **Response:**
     - Success:
       ```json
@@ -86,16 +72,12 @@ This documentation provides details on the endpoints for the barber app API.
 - **Request:**
     ```json
     {
+        "id": 1,
         "name": "Mohammad Abdelhadi"
     }
     ```
-- **cURL Example:**
-    ```bash
-    curl --location 'http://localhost:5000/api/user/addbarber/650b9d8bdabaadebc52dbcb2' \
-    --data-raw '{
-        "name": "Mohammad Abdelhadi"
-    }'
-    ```
+- **cURL Example:** curl --location 'http://localhost:5000/api/user/addbarber/650b9d8bdabaadebc52dbcb2' \
+   
 - **Response:**
     - Success:
       ```json
@@ -147,33 +129,8 @@ This documentation provides details on the endpoints for the barber app API.
         ]
     }
     ```
-- **cURL Example:**
-    ```bash
-    curl --location 'http://localhost:5000/api/user/login' \
-    --data-raw '{
-        "appointments": [
-            {
-                "barber": {
-                    "id": 1,
-                    "name": "alawi",
-                    "availableTime": []
-                },
-                "services": [
-                    {
-                        "id": 1,
-                        "name": "Service 1",
-                        "price": 20,
-                        "time": 30
-                    },
-                   
-                ],
-                "time": "16:30",
-                "date": "2023-09-17",
-                "status": "pending"
-            }
-        ]
-    }'
-    ```
+- **cURL Example:**  curl --location 'http://localhost:5000/api/user/login' \
+
 - **Response:**
     - Success:
       ```json
@@ -235,29 +192,7 @@ This documentation provides details on the endpoints for the barber app API.
         }
     ]
     ```
-- **cURL Example:**
-    ```bash
-    curl --location 'http://localhost:5000/api/user/' \
-    --data-raw '[
-        {
-            "_id": "650eafbb0a65942e19ba24e6",
-            "email": "admin1@admin.com",
-            "password": "$2b$10$3q5vgMM5Mp0Xx8HJPuUwbOUp/3d7pNIvf07X7jGm6Q7gwotH0m8cm",
-            "role": "admin",
-            "barbers": [],
-            "appointments": [],
-            "__v": 0
-        },
-        {
-            "_id": "650eb0400a65942e19ba2510",
-            "email": "test@test.com",
-            "password": "$2b$10$4B7I5pYhBmRWlZEJNleiZuhYte2wXSBvz8SuboHbyU/NAtAEHIZfK",
-            "role": "user",
-            "appointments": [],
-            "__v": 0
-        }
-    ]'
-    ```
+- **cURL Example:** curl --location 'http://localhost:5000/api/user/' \
 - **Response:**
     - Success:
       ```json
@@ -300,17 +235,8 @@ This documentation provides details on the endpoints for the barber app API.
         ..
     }
     ```
-- **cURL Example:**
-    ```bash
-    curl --location 'http://localhost:5000/api/user/getallappoinemnts' \
-    --data-raw
-    '{
-     [
-        "userId": "650b9d8bdabaadebc52dbcb2",
-        "appointments": [] , ...all of users
-    ]
-    }'
-    ```
+- **cURL Example:**  curl --location 'http://localhost:5000/api/user/getallappoinemnts' \
+   
 - **Response:**
     - Success:
       ```json
@@ -378,7 +304,6 @@ This documentation provides details on the endpoints for the barber app API.
 - **Endpoint:** `GET /api/user/getbarbers/:id`
 - **Authorization:** None
 - **cURL Example:** curl --location 'http://localhost:5000/api/user/getbarbers/650b9d8bdabaadebc52dbcb2' 
-
 - **Response:**
     - Success:
       ```json
@@ -391,16 +316,7 @@ This documentation provides details on the endpoints for the barber app API.
                   "10:00",
                   "11:00",
                   "12:00",
-                  "13:00",
-                  "14:00",
-                  "15:00",
-                  "16:00",
-                  "17:00",
-                  "18:00",
-                  "19:00",
-                  "20:00",
-                  "21:00",
-                  "22:00"
+              
               ]
           }
       ]
