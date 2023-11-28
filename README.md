@@ -5,7 +5,22 @@
 This documentation provides details on the endpoints for the barber app API.
 
 ## Screenshots Mobile Application
+ <style>
+        /* Center images within the container */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
+        /* Add a 1px border to each image */
+        img {
+            border: 1px solid #000;
+            margin: 5px; /* Add some margin between images */
+        }
+    </style>
 ### Splash Screen
 <img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/3984fd45-b594-4a8b-8ebc-6bf81adc8d1e" alt="Splash Screen" style="width: 218px; height: 620px;">
 
