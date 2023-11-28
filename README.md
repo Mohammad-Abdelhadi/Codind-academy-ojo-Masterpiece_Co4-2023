@@ -209,33 +209,63 @@ This documentation provides details on the endpoints for the barber app API.
       }
       ```
 
-### Login
+### Get All Users
 
-- **Endpoint:** `POST /api/user/login`
+- **Endpoint:** `POST /api/user/`
 - **Authorization:** None
 - **Request:**
     ```json
     {
-        "email": "moh@mail.com",
-        "password": "aA12345678#"
+     none
     }
     ```
 - **cURL Example:**
     ```bash
-    curl --location 'http://localhost:5000/api/user/login' \
+    curl --location 'http://localhost:5000/api/user/' \
     --data-raw
     '{
-    "email":"moh@mail.com",
-    "password":"aA12345678#"
+    // All The Data Of users
+      {
+        "_id": "650eafbb0a65942e19ba24e6",
+        "email": "admin1@admin.com",
+        "password": "$2b$10$3q5vgMM5Mp0Xx8HJPuUwbOUp/3d7pNIvf07X7jGm6Q7gwotH0m8cm",
+        "role": "admin",
+        "barbers": [],
+        "appointments": [],
+        "__v": 0
+    },
+    {
+        "_id": "650eb0400a65942e19ba2510",
+        "email": "test@test.com",
+        "password": "$2b$10$4B7I5pYhBmRWlZEJNleiZuhYte2wXSBvz8SuboHbyU/NAtAEHIZfK",
+        "role": "user",
+        "appointments": [],
+        "__v": 0
+    },
     }'
     ```
 - **Response:**
     - Success:
       ```json
       {
-          "username": "mohamamd",
-          "email": "moh@mail.com",
-          "token": "<your_generated_token>"
+           // All The Data Of users
+      {
+        "_id": "650eafbb0a65942e19ba24e6",
+        "email": "admin1@admin.com",
+        "password": "$2b$10$3q5vgMM5Mp0Xx8HJPuUwbOUp/3d7pNIvf07X7jGm6Q7gwotH0m8cm",
+        "role": "admin",
+        "barbers": [],
+        "appointments": [],
+        "__v": 0
+    },
+    {
+        "_id": "650eb0400a65942e19ba2510",
+        "email": "test@test.com",
+        "password": "$2b$10$4B7I5pYhBmRWlZEJNleiZuhYte2wXSBvz8SuboHbyU/NAtAEHIZfK",
+        "role": "user",
+        "appointments": [],
+        "__v": 0
+    },
       }
       ```
     - Failure:
