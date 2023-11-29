@@ -9,6 +9,10 @@ This documentation provides details on the endpoints for the barber app API.
 ### Splash Screen
 <img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/3984fd45-b594-4a8b-8ebc-6bf81adc8d1e" width="414">
 
+
+https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/12f2249b-01b0-49fb-9fac-cdd5a831f7be
+
+
 ## Introduction One
 <img src="https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/422755f6-b887-4c85-a567-ce65ff71d586" width="414">
 
