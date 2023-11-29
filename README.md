@@ -350,14 +350,7 @@ This documentation provides details on the endpoints for the barber app API.
         "role": "admin"
     }
     ```
-- **cURL Example:**
-    ```bash
-    curl --location --request PATCH 'http://localhost:5000/api/user/updateuserinfo/650b9d8bdabaadebc52dbcb2' \
-    --data-raw '{
-        "email": "admin@admin.com",
-        "role": "admin"
-    }'
-    ```
+- **cURL Example:** PATCH'http://localhost:5000/api/user/updateuserinfo/650b9d8bdabaadebc52dbcb2' \
 - **Response:**
     - Success:
       ```json
@@ -374,7 +367,7 @@ This documentation provides details on the endpoints for the barber app API.
 
 ### Update Appointment Status
 
-- **Endpoint:** `POST /api/user/updateAppointmentStatus/:userId/:appointmentId`
+- **Endpoint:** `PUT /api/user/updateAppointmentStatus/:userId/:appointmentId`
 - **Authorization:** None
 - **Request:**
     ```json
@@ -382,13 +375,7 @@ This documentation provides details on the endpoints for the barber app API.
         "newStatus": "accepted"
     }
     ```
-- **cURL Example:**
-    ```bash
-    curl --location --request POST 'http://localhost:5000/api/user/updateAppointmentStatus/655e6267782c5629e422ec2e/6564502b02f4a61066876e55' \
-    --data-raw '{
-        "newStatus": "accepted"
-    }'
-    ```
+- **cURL Example:** PUT 'http://localhost:5000/api/user/updateAppointmentStatus/655e6267782c5629e422ec2e/6564502b02f4a61066876e55' \
 - **Response:**
     - Success:
       ```json
@@ -405,12 +392,10 @@ This documentation provides details on the endpoints for the barber app API.
 
 ### Delete User
 
-- **Endpoint:** `POST /api/user/delete/:id`
+- **Endpoint:** `DELETE /api/user/delete/:id`
 - **Authorization:** None
-- **cURL Example:**
-    ```bash
-    curl --location --request POST 'http://localhost:5000/api/user/delete/650eb01f0a65942e19ba24fe'
-    ```
+- **cURL Example:**  DELETE 'http://localhost:5000/api/user/delete/650eb01f0a65942e19ba24fe'
+
 - **Response:**
     - Success:
       ```json
