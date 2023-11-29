@@ -43,7 +43,7 @@ This documentation provides details on the endpoints for the barber app API.
 ![DashBoard Login](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/099771d6-426e-4529-a6d3-e8b524008249)
 ![Dashboard All Users](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/568ffde6-b5a6-4375-bfca-160c2e4b9651)
 ![DashBoard - Pending Appointments](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/72246071-b77f-4634-8d86-f5b6cf4491ce)
-![Dashboard - Live Appointments](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/83b32843-938f-4d3c-88c9-1277f347eb37)
+![Dashboard - Live Appointments](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/fc6dbddb-64c6-4284-90ac-84404e3b98c5)
 ![DashBoard - All Appointments](https://github.com/Mohammad-Abdelhadi/Masterpiece_Co4-2023/assets/125509690/6e1fa5e8-93cd-4dc0-9fbb-67a50a107601)
 
 ### Sign up
